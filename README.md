@@ -2,6 +2,8 @@
 
 FastRAG is a web platform designed to streamline the process of creating, managing, and querying Retrieval-Augmented Generation (RAG) projects. It provides a user-friendly interface to upload CSV data, vectorize it using state-of-the-art OpenAI models, and perform powerful semantic searches on your custom knowledge bases.
 
+The core purpose of FastRAG is to enable powerful A/B testing and benchmarking of different RAG configurations. It allows you to easily compare different datasets, chunking strategies, or embedding models against each other to find the most effective setup for your use case.
+
 ## Core Features
 
 - **Multi-Project Management**: Organize your work into separate, isolated projects.
@@ -13,6 +15,15 @@ FastRAG is a web platform designed to streamline the process of creating, managi
 - **Powerful Semantic Search**: Once a project is processed, perform similarity searches to retrieve the most relevant chunks based on your query.
 - **Full Project Lifecycle**: Create, list, and securely delete projects. Deleting a project automatically removes all associated documents and embeddings.
 - **Dockerized for Deployment**: Comes with an optimized, multi-stage `Dockerfile` for easy and reproducible deployments.
+
+## Future Vision: RAG Benchmarking
+
+The long-term vision for FastRAG is to become a comprehensive benchmarking tool. Future development will focus on allowing users to:
+
+-   **Select multiple projects** for simultaneous search.
+-   **Compare results** side-by-side to evaluate which project yields the most relevant answers.
+-   **Upvote the best results** in each comparison round to create a feedback loop.
+-   **Generate a final score** to objectively determine which project (and which RAG strategy) is the most effective.
 
 ## Tech Stack
 
@@ -102,7 +113,7 @@ The included `Dockerfile` is optimized for production deployment.
 
 ### 1. Build the Docker Image
 
-This command builds the image, passing the necessary `OPENAI_API_KEY` as a build argument.
+This command builds the image.
 
 ```bash
 docker build -t your-docker-username/fastrag:latest .
