@@ -24,7 +24,7 @@ export default function NewProjectForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!file || !projectName) {
-      setError("Le nom du projet et le fichier CSV sont requis.");
+      setError("Setup name and CSV file are required.");
       return;
     }
     setLoading(true);
@@ -45,11 +45,11 @@ export default function NewProjectForm() {
 
       if (!response.ok) {
          const errorText = await response.text();
-         throw new Error(errorText || "Une erreur est survenue lors de la création.");
+         throw new Error(errorText || "An error occurred during project creation.");
       }
 
       if (!response.body) {
-        throw new Error("La réponse du serveur ne contient pas de stream.");
+        throw new Error("The server response does not contain a stream.");
       }
 
       const reader = response.body.getReader();
@@ -58,8 +58,8 @@ export default function NewProjectForm() {
       while (true) {
         const { done, value } = await reader.read();
         if (done) {
-          setProgressText("Traitement terminé ! Redirection...");
-          router.push("/rag");
+          setProgressText("Processing complete! Redirecting...");
+          router.push("/chunks");
           router.refresh();
           break;
         }
@@ -72,11 +72,11 @@ export default function NewProjectForm() {
           const data = JSON.parse(jsonString);
 
           if (data.type === 'start') {
-            setProgressText(`Initialisation... 0 / ${data.total} lignes.`);
+            setProgressText(`Initializing... 0 / ${data.total} rows.`);
           } else if (data.type === 'progress') {
             const percentage = Math.round((data.processed / data.total) * 100);
             setProgress(percentage);
-            setProgressText(`Traitement... ${data.processed} / ${data.total} lignes.`);
+            setProgressText(`Processing... ${data.processed} / ${data.total} rows.`);
           } else if (data.type === 'done') {
             setProgress(100);
           }
@@ -96,14 +96,14 @@ export default function NewProjectForm() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 py-10">
       <div className="w-full max-w-2xl px-4 mx-auto">
-        <h1 className="text-4xl font-bold text-center mb-8">Nouveau Projet</h1>
+        <h1 className="text-4xl font-bold text-center mb-8">New Chunk Setup</h1>
         <form
           onSubmit={handleSubmit}
           className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md space-y-6"
         >
           {loading ? (
             <div className="text-center">
-                <h3 className="text-xl font-semibold mb-4">Création de votre projet...</h3>
+                <h3 className="text-xl font-semibold mb-4">Creating your chunk setup...</h3>
                 <div className="w-full bg-gray-200 rounded-full h-4 dark:bg-gray-700">
                     <div
                         className="bg-blue-600 h-4 rounded-full transition-all duration-500"
@@ -116,14 +116,14 @@ export default function NewProjectForm() {
             <>
               <div>
                 <label htmlFor="projectName" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Nom du projet
+                  Setup Name
                 </label>
                 <input
                   id="projectName"
                   type="text"
                   value={projectName}
                   onChange={(e) => setProjectName(e.target.value)}
-                  placeholder="Mon super projet RAG"
+                  placeholder="Overlapping Chunks Strategy - 1000 tokens - text-embedding-3-small"
                   className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   required
                 />
@@ -131,7 +131,7 @@ export default function NewProjectForm() {
 
               <div>
                 <label htmlFor="model" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Modèle d&apos;embedding
+                  Embedding Model
                 </label>
                 <select
                   id="model"
@@ -139,7 +139,7 @@ export default function NewProjectForm() {
                   onChange={(e) => setModel(e.target.value as EmbeddingModel)}
                   className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
-                  <option value="openai_text_embedding_3_small">OpenAI - text-embedding-3-small</option>
+                  <option value="openai_text_embedding_3_small">OpenAI - text-embedding-3-small (1536 dimensions)</option>
                   <option value="openai_text_embedding_3_large">OpenAI - text-embedding-3-large</option>
                   <option value="openai_text_embedding_ada_002">OpenAI - text-embedding-ada-002</option>
                 </select>
@@ -147,7 +147,7 @@ export default function NewProjectForm() {
 
               <div>
                 <label htmlFor="file" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Fichier CSV
+                  CSV File
                 </label>
                  <input
                   id="file"
@@ -158,7 +158,7 @@ export default function NewProjectForm() {
                   required
                 />
                 <p className="text-xs text-gray-500 mt-2">
-                  Le CSV doit contenir une colonne &quot;chunk&quot; pour le contenu à vectoriser. Les autres colonnes seront stockées dans les métadonnées.
+                  The CSV must contain a &quot;chunk&quot; column for the content to vectorize. Other columns will be stored as metadata.
                 </p>
               </div>
 
@@ -169,7 +169,7 @@ export default function NewProjectForm() {
                 disabled={loading || !file || !projectName}
                 className="w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-blue-300 disabled:cursor-not-allowed"
               >
-                Créer le projet et vectoriser
+                Create Setup and Vectorize
               </button>
             </>
           )}

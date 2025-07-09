@@ -9,7 +9,7 @@ interface SearchResult {
   id: string;
   content: string;
   similarity: number;
-  metadata: any;
+  metadata: JSON;
 }
 
 type CompareResults = { [projectId: string]: SearchResult[] };
@@ -34,7 +34,7 @@ function ComparePageComponent() {
             projectIds.map(id => fetch(`/api/projects/${id}`).then(res => res.json()))
           );
           setProjectDetails(details);
-        } catch (err) {
+        } catch {
           setError("Failed to fetch project details.");
         } finally {
           setLoading(false);
@@ -70,8 +70,8 @@ function ComparePageComponent() {
       });
       setResults(newResults);
 
-    } catch (err: any) {
-      setError(err.message || "An error occurred during search.");
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "An error occurred during search.");
     } finally {
       setLoading(false);
     }
@@ -80,8 +80,8 @@ function ComparePageComponent() {
   return (
      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 py-10">
       <div className="w-full max-w-7xl px-4 mx-auto">
-        <Link href="/rag" className="text-blue-500 hover:underline mb-4 block">&larr; Retour</Link>
-        <h1 className="text-4xl font-bold mb-8">Comparaison de Projets</h1>
+        <Link href="/chunks" className="text-blue-500 hover:underline mb-4 block">&larr; Back</Link>
+        <h1 className="text-4xl font-bold mb-8">RAG Battleground ⚔️</h1>
 
         <div className="sticky top-4 bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow-md mb-8 z-10">
             <div className="flex items-center space-x-4">
@@ -89,7 +89,7 @@ function ComparePageComponent() {
                   type="text"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
-                  placeholder="Votre requête de recherche unique..."
+                  placeholder="Your unique search query..."
                   className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <select
@@ -107,7 +107,7 @@ function ComparePageComponent() {
                   disabled={loading || !query}
                   className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:bg-green-300"
                 >
-                  {loading ? "Recherche..." : "Rechercher"}
+                  {loading ? "Searching..." : "Search"}
                 </button>
             </div>
              {error && <p className="text-red-500 mt-2 text-center">{error}</p>}
@@ -115,7 +115,7 @@ function ComparePageComponent() {
 
         <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-${projectIds.length} gap-6`}>
             {projectDetails.map((project) => (
-                <div key={project.id} className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg flex flex-col">
+                <div key={project.id.toString()} className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg flex flex-col">
                     <div className="text-center mb-4">
                       <h2 className="text-xl font-bold">{project.name}</h2>
                       <div className="text-xs text-gray-400">
@@ -125,7 +125,7 @@ function ComparePageComponent() {
                       </div>
                     </div>
                     <div className="space-y-4 overflow-y-auto">
-                        {(results[project.id] || []).map(result => (
+                        {(results[project.id.toString()] || []).map(result => (
                            <div key={result.id} className="bg-white dark:bg-gray-700 p-3 rounded-lg shadow">
                               <div className="flex justify-between items-start">
                                 <p className="flex-1 pr-2 text-sm">{result.content}</p>
@@ -134,14 +134,14 @@ function ComparePageComponent() {
                                 </span>
                               </div>
                               <details className="mt-2 text-xs text-gray-400 cursor-pointer">
-                                  <summary className="outline-none">Afficher les métadonnées</summary>
+                                  <summary className="outline-none">Show metadata</summary>
                                   <pre className="mt-1 p-2 bg-gray-200 dark:bg-gray-600 rounded text-xs overflow-auto">
                                     {JSON.stringify(result.metadata, null, 2)}
                                   </pre>
                               </details>
                             </div>
                         ))}
-                         {loading && <p className="text-center text-sm">Chargement...</p>}
+                         {loading && <p className="text-center text-sm">Loading...</p>}
                     </div>
                 </div>
             ))}
@@ -153,7 +153,7 @@ function ComparePageComponent() {
 
 export default function ComparePage() {
     return (
-        <Suspense fallback={<div>Chargement de la page de comparaison...</div>}>
+        <Suspense fallback={<div>Loading comparison page...</div>}>
             <ComparePageComponent />
         </Suspense>
     )

@@ -82,7 +82,7 @@ export default function ProjectPage() {
 
       const data = await response.json();
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to rename project.');
+        throw new Error(data.error || 'Failed to rename setup.');
       }
 
       setProject(prev => prev ? { ...prev, name: data.name } : null);
@@ -100,7 +100,7 @@ export default function ProjectPage() {
 
   const handleSearch = async () => {
     if (!query || !projectId) {
-      setError("La requête est requise.");
+      setError("Query is required.");
       return;
     }
     setLoadingSearch(true);
@@ -116,7 +116,7 @@ export default function ProjectPage() {
 
       const data = await response.json();
       if (!response.ok) {
-        throw new Error(data.error || "Une erreur est survenue lors de la recherche.");
+        throw new Error(data.error || "An error occurred during search.");
       }
       setResults(data);
     } catch (err) {
@@ -131,19 +131,15 @@ export default function ProjectPage() {
   };
 
   if (loadingProject) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        Chargement du projet...
-      </div>
-    );
+    return <div className="min-h-screen flex items-center justify-center">Loading project...</div>;
   }
 
   if (!project) {
     return (
         <div className="min-h-screen flex flex-col items-center justify-center">
-            <h2 className="text-2xl font-bold text-red-500">Projet introuvable</h2>
-            <p className="text-gray-400">Ce projet n&apos;existe pas ou vous n&apos;y avez pas accès.</p>
-            <Link href="/" className="mt-4 text-blue-500 hover:underline">&larr; Retour à l&apos;accueil</Link>
+            <h2 className="text-2xl font-bold text-red-500">Setup not found</h2>
+            <p className="text-gray-400">This setup does not exist or you do not have access.</p>
+            <Link href="/" className="mt-4 text-blue-500 hover:underline">&larr; Back to dashboard</Link>
         </div>
     );
   }
@@ -151,7 +147,7 @@ export default function ProjectPage() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 py-10">
       <div className="w-full max-w-4xl px-4 mx-auto">
-        <Link href="/rag" className="text-blue-500 hover:underline mb-4 block">&larr; Retour à tous les projets</Link>
+        <Link href="/chunks" className="text-blue-500 hover:underline mb-4 block">&larr; Back to all setups</Link>
 
         <div className="mb-8">
             <div className="flex items-center gap-4">
@@ -163,20 +159,29 @@ export default function ProjectPage() {
                     onChange={(e) => setNewName(e.target.value)}
                     className="text-4xl font-bold bg-transparent border-b-2 border-gray-400 focus:outline-none focus:border-blue-500"
                   />
-                  <button onClick={handleRenameSave} className="px-3 py-1 bg-green-600 text-white rounded-lg text-sm">Sauvegarder</button>
-                  <button onClick={handleRenameCancel} className="px-3 py-1 bg-gray-500 text-white rounded-lg text-sm">Annuler</button>
+                  <button onClick={handleRenameSave} className="px-3 py-1 bg-green-600 text-white rounded-lg text-sm">Save</button>
+                  <button onClick={handleRenameCancel} className="px-3 py-1 bg-gray-500 text-white rounded-lg text-sm">Cancel</button>
                 </>
               ) : (
                 <>
                   <h1 className="text-4xl font-bold">{project.name}</h1>
-                  <button onClick={handleRenameStart} className="text-sm text-blue-500 hover:underline">Renommer</button>
+                  <button
+                    onClick={handleRenameStart}
+                    className="text-gray-400 hover:text-blue-500 p-1 rounded-full transition-colors"
+                    title="Rename setup"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
+                      <path fillRule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clipRule="evenodd" />
+                    </svg>
+                  </button>
                 </>
               )}
             </div>
             <div className="text-sm text-gray-400 flex items-center gap-4 mt-2">
-                <span>Parmi {project._count.documents} chunks</span>
+                <span>{project._count.documents} chunks</span>
                 <span>&bull;</span>
-                <span>{`Modèle : ${project.embedding_model.replace(/_/g, ' ').replace('openai text embedding', 'OpenAI Text Embedding')}`}</span>
+                <span>Model: {project.embedding_model}</span>
             </div>
         </div>
 
@@ -186,7 +191,7 @@ export default function ProjectPage() {
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Votre requête..."
+              placeholder="Your query..."
               className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
              <select
@@ -204,7 +209,7 @@ export default function ProjectPage() {
               disabled={loadingSearch || !query}
               className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:bg-green-300"
             >
-              {loadingSearch ? "Recherche..." : "Rechercher"}
+              {loadingSearch ? "Searching..." : "Search"}
             </button>
           </div>
         </div>
@@ -212,7 +217,7 @@ export default function ProjectPage() {
         {error && <p className="text-red-500 mt-4 text-center">{error}</p>}
 
         <div className="mt-8">
-          <h2 className="text-2xl font-semibold mb-4">Résultats ({results.length})</h2>
+          <h2 className="text-2xl font-semibold mb-4">Results ({results.length})</h2>
           <div className="space-y-4">
             {results.length > 0 ? (
               results.map((result) => (
@@ -224,7 +229,7 @@ export default function ProjectPage() {
                     </span>
                   </div>
                   <details className="mt-2 text-xs text-gray-400">
-                      <summary>Afficher les métadonnées</summary>
+                      <summary>Show metadata</summary>
                       <pre className="mt-1 p-2 bg-gray-100 dark:bg-gray-700 rounded text-xs overflow-auto">
                         {JSON.stringify(result.metadata, null, 2)}
                       </pre>
@@ -232,7 +237,7 @@ export default function ProjectPage() {
                 </div>
               ))
             ) : (
-              <p className="text-gray-500 text-center">Aucun résultat à afficher. Lancez une recherche pour commencer.</p>
+              <p className="text-gray-500 text-center">No results to display. Run a query to get started.</p>
             )}
           </div>
         </div>

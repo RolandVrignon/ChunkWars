@@ -9,7 +9,7 @@ const apiKey = process.env.OPENAI_API_KEY ?? "";
 
 const openai = new OpenAI({
   apiKey: apiKey,
-}); 
+});
 
 // Helper to process arrays in chunks
 function chunkArray<T>(array: T[], chunkSize: number): T[][] {
@@ -77,7 +77,7 @@ export async function POST(request: Request) {
 
     const headers = parsedCsv.meta.fields;
     if (!headers || !headers.includes('chunk')) {
-      return new NextResponse("Le fichier CSV doit contenir une colonne 'chunk'.", { status: 400 });
+      return new NextResponse("The CSV file must contain a 'chunk' column.", { status: 400 });
     }
 
     const project = await prisma.project.create({
@@ -143,7 +143,7 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error("[PROJECT_CREATION_ERROR]", error);
     if (error instanceof Error && 'code' in error && error.code === 'P2002') {
-      return new NextResponse("Un projet avec ce nom existe déjà.", { status: 409 });
+      return new NextResponse("A project with this name already exists.", { status: 409 });
     }
     return new NextResponse("Internal Server Error", { status: 500 });
   }

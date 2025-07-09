@@ -6,8 +6,8 @@ import { Providers } from "@/components/providers";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "FastRAG",
-  description: "Create, manage, and explore your embedding projects.",
+  title: "Chunk Wars",
+  description: "Create, manage, and benchmark your RAG setups.",
 };
 
 export default function RootLayout({
