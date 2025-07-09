@@ -1,0 +1,29 @@
+# Dependencies
+node_modules
+
+# Development
+.env
+.env*.local
+.env*.development
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-store
+
+# Next.js build output
+.next
+dist
+build
+
+# Docker
+Dockerfile
+.dockerignore
+
+# Misc
+.DS_Store
+*.pem
+*.p12
+*.key
+.vscode
+README.md

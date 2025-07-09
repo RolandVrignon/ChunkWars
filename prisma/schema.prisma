@@ -1,0 +1,41 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum EmbeddingModel {
+  openai_text_embedding_3_small
+  openai_text_embedding_3_large
+  openai_text_embedding_ada_002
+}
+
+model Project {
+  id              BigInt     @id @default(autoincrement())
+  name            String
+  embedding_model EmbeddingModel
+  createdAt       DateTime   @default(now()) @map("created_at")
+  userId          String     @map("user_id") // Maps to the user_id column from Supabase Auth
+  documents       Document[]
+
+  @@unique([userId, name])
+  @@map("projects")
+}
+
+model Document {
+  id        BigInt  @id @default(autoincrement())
+  content   String?
+  embedding Unsupported("vector(1536)")?
+  metadata  Json?   @db.JsonB // Storing additional metadata
+  projectId BigInt  @map("project_id")
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@map("documents")
+}
