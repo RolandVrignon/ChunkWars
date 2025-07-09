@@ -11,6 +11,8 @@ export default function RagPage() {
   const { status } = useSession();
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isCompareMode, setIsCompareMode] = useState(false);
+  const [selectedProjects, setSelectedProjects] = useState<bigint[]>([]);
 
   const fetchProjects = async () => {
     try {
@@ -52,6 +54,19 @@ export default function RagPage() {
     }
   };
 
+  const handleSelectProject = (projectId: bigint) => {
+    setSelectedProjects(prev => {
+      if (prev.includes(projectId)) {
+        return prev.filter(id => id !== projectId);
+      } else {
+        if (prev.length < 3) {
+          return [...prev, projectId];
+        }
+        return prev; // Limit to 3 projects
+      }
+    });
+  };
+
 
   if (status === 'loading' || loading) {
     return <div className="min-h-screen flex items-center justify-center">Chargement...</div>;
@@ -63,6 +78,15 @@ export default function RagPage() {
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-4xl font-bold">Mes Projets</h1>
           <div className="flex items-center gap-4">
+            <button
+              onClick={() => {
+                setIsCompareMode(!isCompareMode);
+                setSelectedProjects([]);
+              }}
+              className={`px-4 py-2 rounded-lg ${isCompareMode ? 'bg-red-600 hover:bg-red-700' : 'bg-gray-600 hover:bg-gray-700'} text-white`}
+            >
+              {isCompareMode ? 'Annuler la comparaison' : 'Comparer des projets'}
+            </button>
             <Link
               href="/projects/new"
               className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
@@ -72,6 +96,21 @@ export default function RagPage() {
             <AuthButtons />
           </div>
         </div>
+
+        {isCompareMode && (
+          <div className="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-6 rounded-md">
+            <p className="font-bold">Mode Comparaison</p>
+            <p>Sélectionnez jusqu'à 3 projets à comparer. {selectedProjects.length} / 3 sélectionnés.</p>
+            {selectedProjects.length >= 2 && (
+              <Link
+                href={`/compare?pids=${selectedProjects.join(',')}`}
+                className="mt-2 inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+              >
+                Commencer la comparaison
+              </Link>
+            )}
+          </div>
+        )}
 
         {projects.length === 0 ? (
           <div className="text-center bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md">
@@ -89,10 +128,14 @@ export default function RagPage() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {projects.map((project) => (
-              <div key={project.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-md flex flex-col">
+              <div
+                key={project.id.toString()}
+                className={`bg-white dark:bg-gray-800 rounded-lg shadow-md flex flex-col transition-all ${isCompareMode ? 'cursor-pointer' : ''} ${selectedProjects.includes(project.id) ? 'ring-2 ring-blue-500' : ''}`}
+                onClick={isCompareMode ? () => handleSelectProject(project.id) : undefined}
+              >
                 <Link
                   href={`/project/${project.id}`}
-                  className="block p-6 flex-grow"
+                  className={`block p-6 flex-grow ${isCompareMode ? 'pointer-events-none' : ''}`}
                 >
                   <h3 className="text-xl font-bold mb-2">{project.name}</h3>
                   <p className="text-sm text-gray-500">

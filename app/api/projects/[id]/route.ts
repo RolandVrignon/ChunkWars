@@ -83,3 +83,54 @@ export async function DELETE(
     return new NextResponse("Failed to delete project", { status: 500 });
   }
 }
+
+export async function PUT(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
+  const session = await auth();
+  if (!session?.user?.id) {
+    return new NextResponse("Not authenticated", { status: 401 });
+  }
+
+  const projectId = params.id;
+  const { name: newName } = await request.json();
+
+  if (!newName) {
+    return new NextResponse("New name is required", { status: 400 });
+  }
+
+  try {
+    // First, verify the user owns the project he is trying to update
+    const project = await prisma.project.findUnique({
+      where: { id: Number(projectId), userId: session.user.id },
+    });
+
+    if (!project) {
+      return new NextResponse("Project not found or you do not have access", { status: 404 });
+    }
+
+    // Update the project name
+    const updatedProject = await prisma.project.update({
+      where: {
+        id: Number(projectId),
+      },
+      data: {
+        name: newName,
+      },
+    });
+
+    return NextResponse.json({
+        ...updatedProject,
+        id: updatedProject.id.toString(),
+    });
+
+  } catch (error) {
+    console.error(`Error updating project ${projectId}:`, error);
+     // Handle potential unique constraint violation for project name
+    if (error && typeof error === 'object' && 'code' in error && error.code === 'P2002') {
+       return new NextResponse("A project with this name already exists.", { status: 409 });
+    }
+    return new NextResponse("Failed to update project", { status: 500 });
+  }
+}

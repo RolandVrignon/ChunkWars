@@ -4,6 +4,8 @@ FastRAG is a web platform designed to streamline the process of creating, managi
 
 The core purpose of FastRAG is to enable powerful A/B testing and benchmarking of different RAG configurations. It allows you to easily compare different datasets, chunking strategies, or embedding models against each other to find the most effective setup for your use case.
 
+![FastRAG Screenshot](/public/assets/screenshot.png)
+
 ## Core Features
 
 - **Multi-Project Management**: Organize your work into separate, isolated projects.

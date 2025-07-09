@@ -23,6 +23,8 @@ export default function ProjectPage() {
   const projectId = params.id as string;
 
   const [project, setProject] = useState<ProjectDetails | null>(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [newName, setNewName] = useState("");
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<SearchResult[]>([]);
   const [matchCount, setMatchCount] = useState(10);
@@ -53,6 +55,48 @@ export default function ProjectPage() {
       fetchProjectDetails();
     }
   }, [projectId]);
+
+  const handleRenameStart = () => {
+    if (!project) return;
+    setIsEditing(true);
+    setNewName(project.name);
+  };
+
+  const handleRenameCancel = () => {
+    setIsEditing(false);
+    setNewName("");
+  };
+
+  const handleRenameSave = async () => {
+    if (!newName || !project || newName === project.name) {
+      setIsEditing(false);
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/projects/${projectId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: newName }),
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to rename project.');
+      }
+
+      setProject(prev => prev ? { ...prev, name: data.name } : null);
+      setIsEditing(false);
+
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("An unknown error occurred while renaming.");
+      }
+      // Ne pas annuler l'édition pour que l'utilisateur puisse voir l'erreur et réessayer
+    }
+  };
 
   const handleSearch = async () => {
     if (!query || !projectId) {
@@ -110,8 +154,26 @@ export default function ProjectPage() {
         <Link href="/rag" className="text-blue-500 hover:underline mb-4 block">&larr; Retour à tous les projets</Link>
 
         <div className="mb-8">
-            <h1 className="text-4xl font-bold mb-2">{project.name}</h1>
-            <div className="text-sm text-gray-400 flex items-center gap-4">
+            <div className="flex items-center gap-4">
+              {isEditing ? (
+                <>
+                  <input
+                    type="text"
+                    value={newName}
+                    onChange={(e) => setNewName(e.target.value)}
+                    className="text-4xl font-bold bg-transparent border-b-2 border-gray-400 focus:outline-none focus:border-blue-500"
+                  />
+                  <button onClick={handleRenameSave} className="px-3 py-1 bg-green-600 text-white rounded-lg text-sm">Sauvegarder</button>
+                  <button onClick={handleRenameCancel} className="px-3 py-1 bg-gray-500 text-white rounded-lg text-sm">Annuler</button>
+                </>
+              ) : (
+                <>
+                  <h1 className="text-4xl font-bold">{project.name}</h1>
+                  <button onClick={handleRenameStart} className="text-sm text-blue-500 hover:underline">Renommer</button>
+                </>
+              )}
+            </div>
+            <div className="text-sm text-gray-400 flex items-center gap-4 mt-2">
                 <span>Parmi {project._count.documents} chunks</span>
                 <span>&bull;</span>
                 <span>{`Modèle : ${project.embedding_model.replace(/_/g, ' ').replace('openai text embedding', 'OpenAI Text Embedding')}`}</span>
