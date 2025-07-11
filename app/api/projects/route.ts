@@ -112,17 +112,31 @@ async function performMistralOcr(documentUrl: string, pages?: number): Promise<{
 
     console.log(`Processing ${numberOfPages} pages with Mistral OCR`);
 
-    const response = await client.ocr.process({
+    // Check if document has more than 8 pages (Mistral OCR limitation for document_annotations)
+    const useDocumentAnnotations = numberOfPages <= 8;
+
+    if (!useDocumentAnnotations) {
+      console.log(`Document has ${numberOfPages} pages (> 8), disabling document_annotations to avoid API error`);
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const requestConfig: any = {
       model: "mistral-ocr-latest",
       pages: Array.from({ length: numberOfPages }, (_, i) => i),
       document: {
-        type: "document_url",
+        type: "document_url" as const,
         documentUrl: documentUrl
       },
       bboxAnnotationFormat: responseFormatFromZodObject(ImageSchema),
-      documentAnnotationFormat: responseFormatFromZodObject(DocumentSchema),
       includeImageBase64: true,
-    });
+    };
+
+    // Only add documentAnnotationFormat for documents with ≤ 8 pages
+    if (useDocumentAnnotations) {
+      requestConfig.documentAnnotationFormat = responseFormatFromZodObject(DocumentSchema);
+    }
+
+    const response = await client.ocr.process(requestConfig);
 
     console.log("Mistral OCR API response:", response);
 
@@ -133,7 +147,7 @@ async function performMistralOcr(documentUrl: string, pages?: number): Promise<{
 
     return {
       pages: enrichedPages,
-      documentAnnotation: response.documentAnnotation
+      documentAnnotation: useDocumentAnnotations ? response.documentAnnotation : null
     };
   } catch (error) {
     console.log("Error in Mistral OCR:", error);
@@ -149,19 +163,24 @@ function createContextualizedChunks(
   // Parse document annotation to get structure info
   let chapterTitles: string[] = [];
   let documentLanguage = '';
+  let hasDocumentStructure = false;
 
   if (documentAnnotation) {
     try {
       const annotation = JSON.parse(documentAnnotation);
       chapterTitles = annotation.chapter_titles || [];
       documentLanguage = annotation.language || '';
+      hasDocumentStructure = chapterTitles.length > 0;
       console.log('Document structure detected:', {
         language: documentLanguage,
-        chapters: chapterTitles.length
+        chapters: chapterTitles.length,
+        hasStructure: hasDocumentStructure
       });
     } catch (error) {
       console.log("Error parsing document annotation:", error);
     }
+  } else {
+    console.log('No document annotation available (document > 8 pages), using basic chunking strategy');
   }
 
   // Join all pages together (images are already enriched)
