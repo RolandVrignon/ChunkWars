@@ -49,7 +49,7 @@ function ComparePageComponent() {
       }
     }
     fetchProjectDetails();
-  }, [projectIds.join(',')]); // Depend on the stringified IDs
+  }, [projectIds]);
 
   const handleSearch = async () => {
     if (!query) return;

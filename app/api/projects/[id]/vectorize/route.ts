@@ -17,19 +17,21 @@ function chunkArray<T>(array: T[], chunkSize: number): T[][] {
 
 export async function POST(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+
+  const { id: projectId } = await params;
+
   try {
     const session = await auth();
     if (!session?.user?.id) {
       return new NextResponse("Not authenticated", { status: 401 });
     }
 
-    const projectId = Number(params.id);
 
     // Verify user owns the project
     const project = await prisma.project.findFirst({
-        where: { id: projectId, userId: session.user.id }
+        where: { id: Number(projectId), userId: session.user.id }
     });
 
     if (!project) {
@@ -38,26 +40,25 @@ export async function POST(
 
     // Set status to PROCESSING
     await prisma.project.update({
-        where: { id: projectId },
+        where: { id: Number(projectId) },
         data: { status: 'PROCESSING' }
     });
 
     const documents = await prisma.document.findMany({
       where: {
-        projectId: projectId,
-        embedding: { isEmpty: true }, // Prisma specific: find where vector is null/empty
+        projectId: Number(projectId),
       },
     });
 
     if (documents.length === 0) {
-        return NextResponse.json({ message: "All documents are already vectorized." });
+        return NextResponse.json({ message: "No documents found." });
     }
 
     // Process in batches
     const documentChunks = chunkArray(documents, 50); // Batch size of 50
 
     for (const batch of documentChunks) {
-        const contents = batch.map(doc => doc.content);
+        const contents = batch.map(doc => doc.content).filter((content): content is string => content !== null);
         const model = project.embedding_model;
 
         const modelName = model.replace('openai_', '').replace(/_/g, '-');
@@ -86,7 +87,7 @@ export async function POST(
 
     // Set status to COMPLETED
     await prisma.project.update({
-        where: { id: projectId },
+        where: { id: Number(projectId) },
         data: { status: 'COMPLETED' }
     });
 
@@ -98,7 +99,7 @@ export async function POST(
     console.error("[VECTORIZATION_ERROR]", error);
     // Optionally, revert status to PENDING on error
     await prisma.project.update({
-        where: { id: Number(params.id) },
+        where: { id: Number(projectId) },
         data: { status: 'PENDING' }
     });
     return new NextResponse("Internal Server Error during vectorization.", { status: 500 });

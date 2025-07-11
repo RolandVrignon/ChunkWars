@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useParams } from 'next/navigation';
 import { Project, Document } from '@prisma/client';
 import { ArrowLeft, Wand2 } from 'lucide-react';
 import Link from 'next/link';
@@ -11,9 +11,10 @@ interface ProjectWithDocuments extends Project {
     documents: Document[];
 }
 
-export default function ReviewPage({ params }: { params: { id: string } }) {
+export default function ReviewPage() {
     const router = useRouter();
-    const projectId = params.id;
+    const params = useParams();
+    const projectId = params.id as string;
     const [project, setProject] = useState<ProjectWithDocuments | null>(null);
     const [loading, setLoading] = useState(true);
     const [vectorizing, setVectorizing] = useState(false);
@@ -28,8 +29,9 @@ export default function ReviewPage({ params }: { params: { id: string } }) {
                 }
                 const data = await response.json();
                 setProject(data);
-            } catch (err: any) {
-                setError(err.message);
+            } catch (err: unknown) {
+                const errorMessage = err instanceof Error ? err.message : 'An error occurred';
+                setError(errorMessage);
             } finally {
                 setLoading(false);
             }
@@ -53,8 +55,9 @@ export default function ReviewPage({ params }: { params: { id: string } }) {
             // TODO: Handle streaming response for progress
             alert("Vectorization started successfully!");
             router.push(`/project/${projectId}`);
-        } catch (err: any) {
-            setError(err.message);
+        } catch (err: unknown) {
+            const errorMessage = err instanceof Error ? err.message : 'An error occurred';
+            setError(errorMessage);
             setVectorizing(false);
         }
     };
@@ -110,7 +113,7 @@ export default function ReviewPage({ params }: { params: { id: string } }) {
                                                                                 <td className="px-6 py-4">
                                             <div className="w-full">
                                                 <MarkdownRenderer
-                                                    content={doc.content}
+                                                    content={doc.content || ''}
                                                     className="prose-sm prose-invert max-w-none"
                                                 />
                                             </div>

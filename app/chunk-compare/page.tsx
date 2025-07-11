@@ -33,15 +33,16 @@ function ChunkComparePageComponent() {
                         }))
                     );
                     setProjects(details);
-                } catch (err: any) {
-                    setError(err.message);
+                } catch (err: unknown) {
+                    const errorMessage = err instanceof Error ? err.message : 'An error occurred';
+                    setError(errorMessage);
                 } finally {
                     setLoading(false);
                 }
             }
         }
         fetchProjects();
-    }, [projectIds.join(',')]);
+    }, [projectIds]);
 
     if (loading) return <div className="min-h-screen flex items-center justify-center bg-gray-900 text-white">Loading project chunks...</div>;
     if (error) return <div className="min-h-screen flex items-center justify-center bg-gray-900 text-red-500">Error: {error}</div>;
@@ -66,16 +67,16 @@ function ChunkComparePageComponent() {
                                     <span>{project.embedding_model.replace('openai_', '').replace(/_/g, '-')}</span>
                                 </div>
                             </div>
-                            <div className="space-y-4 overflow-y-auto pr-2">
-                                {project.documents.map((doc, index) => (
+                                                        <div className="space-y-4 overflow-y-auto pr-2">
+                                {project.documents.map((doc) => (
                                     <div key={doc.id.toString()} className="bg-gray-700 p-3 rounded-lg shadow">
                                         <div className="flex-1 pr-2 text-sm">
                                             <MarkdownRenderer
-                                                content={doc.content}
+                                                content={doc.content || ''}
                                                 className="prose-sm prose-invert max-w-none"
                                             />
                                         </div>
-                                        {Object.keys(doc.metadata).length > 0 && (
+                                        {doc.metadata && Object.keys(doc.metadata).length > 0 && (
                                             <details className="mt-2 text-xs text-gray-400 cursor-pointer">
                                                 <summary className="outline-none">Show metadata</summary>
                                                 <pre className="mt-1 p-2 bg-gray-900 rounded text-xs overflow-auto">

@@ -1,132 +1,213 @@
-# Chunk Wars
+# ⚔️ Chunk Wars
 
-Chunk Wars is a web platform designed to streamline the process of creating, managing, and querying Retrieval-Augmented Generation (RAG) setups. It provides a user-friendly interface to upload CSV data, vectorize it using state-of-the-art OpenAI models, and perform powerful semantic searches on your custom knowledge bases.
+> The ultimate platform to create, test, and optimize your RAG (Retrieval-Augmented Generation) configurations
 
-The core purpose of Chunk Wars is to enable powerful A/B testing and benchmarking of different RAG configurations. It allows you to easily compare different datasets, chunking strategies, or embedding models against each other to find the most effective setup for your use case.
+Chunk Wars is an advanced web platform that revolutionizes how you create and optimize your RAG systems. Upload your documents, choose from multiple intelligent chunking strategies, and discover which configuration works best for your use cases with our integrated battleground system.
 
-![Chunk Wars Screenshot](/public/assets/screenshot.png)
+![Chunk Wars Demo](/public/assets/screenshot.png)
 
-## Core Features
+## 🌟 Highlights
 
-- **Multi-Setup Management**: Organize your work into separate, isolated setups.
-- **Secure User Authentication**: Google SSO integration powered by NextAuth.js ensures that users can only access their own setups.
-- **Dynamic CSV Processing**: Upload a CSV file, specify a `chunk` column for vectorization, and all other columns are automatically stored as queryable JSON metadata.
-- **Choice of Embedding Models**: Select from different OpenAI models (`text-embedding-3-small`, `text-embedding-3-large`) for each setup. The API automatically handles different output dimensions.
-- **Parallel Batch Processing**: For fast and efficient embedding generation, the backend processes CSV rows in parallel batches of 15.
-- **Real-time Progress Bar**: Monitor the vectorization process with a live progress bar.
-- **Powerful Semantic Search**: Once a setup is processed, perform similarity searches to retrieve the most relevant chunks based on your query.
-- **Full Setup Lifecycle**: Create, list, and securely delete setups. Deleting a setup automatically removes all associated documents and embeddings.
-- **Dockerized for Deployment**: Comes with an optimized, multi-stage `Dockerfile` for easy and reproducible deployments.
+- **🤖 Intelligent Mistral AI OCR** - Text and image extraction with automatic annotations
+- **📊 Advanced Chunking Templates** - Simple, recursive, or document-structure-based
+- **⚔️ RAG Battleground** - Compare your setups side-by-side to identify the best performer
+- **🎨 Enriched Markdown Display** - Professional rendering with annotated images
+- **🔐 Secure Multi-tenant** - Complete user data isolation
+- **🚀 Optimized Performance** - Parallel processing and production-ready Docker
 
-## Future Vision: RAG Benchmarking
+## 🚀 Features
 
-The long-term vision for Chunk Wars is to become a comprehensive benchmarking tool. Future development will focus on allowing users to:
+### 📄 Intelligent Chunking Strategies
 
--   **Select multiple setups** for simultaneous search.
--   **Compare results** side-by-side to evaluate which setup yields the most relevant answers.
--   **Upvote the best results** in each comparison round to create a feedback loop.
--   **Generate a final score** to objectively determine which setup (and which RAG strategy) is the most effective.
+**Mistral OCR (Recommended)**
+- OCR extraction with Mistral AI for PDFs and images
+- Automatic image annotations with descriptions
+- Document structure-based hierarchical chunking
+- Support for 16+ page documents
+- Automatic page count detection
 
-## Tech Stack
+**Classic Templates**
+- **Simple Overlap**: Character-based chunking with overlap
+- **Recursive Overlap**: Intelligent recursive chunking preserving structure
 
-- **Framework**: [Next.js](https://nextjs.org/) (App Router)
-- **Database**: [Supabase](https://supabase.com/) (PostgreSQL) with the [pgvector](https://github.com/pgvector/pgvector) extension.
-- **ORM**: [Prisma](https://www.prisma.io/) for type-safe database access and migrations.
-- **Authentication**: [NextAuth.js](https://next-auth.js.org/)
-- **Vector Embeddings**: [OpenAI API](https://openai.com/docs)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **Deployment**: [Docker](https://www.docker.com/)
+### ⚔️ RAG Battleground
 
-## Getting Started
+Compare your RAG configurations in real-time:
 
-Follow these steps to get a local instance of the application up and running.
+- **Retrieval Battleground**: Simultaneous search across multiple setups
+- **Chunk Battleground**: Side-by-side chunk visualization
+- **Intelligent Scoring**: Objectively identify the best configuration
+
+### 🎨 Modern Interface
+
+- **Markdown Display**: Professional rendering with `react-markdown` + Tailwind Typography
+- **Enriched Images**: Automatic AI annotations for each image
+- **Dark/Light Mode**: Adaptive interface
+- **Real-time Progress**: Vectorization tracking with SSE
+
+### 🔧 Complete Management
+
+- **Multi-Setup**: Organize your projects in isolated configurations
+- **Embedding Models**: OpenAI `text-embedding-3-small/large`
+- **JSON Metadata**: CSV columns automatically indexed
+- **Full Lifecycle**: Creation, review, vectorization, search, deletion
+
+## 🛠️ Tech Stack
+
+- **Framework**: [Next.js 15](https://nextjs.org/) (App Router) with TypeScript
+- **Database**: [Supabase](https://supabase.com/) PostgreSQL + [pgvector](https://github.com/pgvector/pgvector)
+- **ORM**: [Prisma](https://www.prisma.io/) with type-safe migrations
+- **Auth**: [NextAuth.js](https://next-auth.js.org/) with Google SSO
+- **AI**: [Mistral AI OCR](https://docs.mistral.ai/capabilities/OCR/) + [OpenAI Embeddings](https://openai.com/docs)
+- **UI**: [Tailwind CSS](https://tailwindcss.com/) + [react-markdown](https://github.com/remarkjs/react-markdown)
+- **Deployment**: [Docker](https://www.docker.com/) optimized multi-stage
+
+## 🚀 Installation
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/en/) (v20 or later)
+- [Node.js](https://nodejs.org/) v20+
 - [pnpm](https://pnpm.io/)
-- [Docker](https://www.docker.com/products/docker-desktop/)
+- [Docker](https://www.docker.com/) (optional)
 
-### 1. Clone the Repository
+### Local Setup
 
 ```bash
+# 1. Clone the repository
 git clone <your-repository-url>
-cd fastrag
-```
+cd chunk-wars
 
-### 2. Install Dependencies
-
-```bash
+# 2. Install dependencies
 pnpm install
-```
 
-### 3. Set Up Environment Variables
-
-Create a `.env.local` file in the root of the project by copying the example file:
-
-```bash
+# 3. Configure environment
 cp .env.example .env.local
-```
+# Fill in environment variables (see section below)
 
-Now, fill in the `.env.local` file with your credentials.
-
-```env
-# OpenAI API Key
-OPENAI_API_KEY="sk-..."
-
-# NextAuth.js - Generate a secret with `openssl rand -base64 32`
-AUTH_SECRET="..."
-
-# Google OAuth Credentials (from Google Cloud Console)
-GOOGLE_CLIENT_ID="..."
-GOOGLE_CLIENT_SECRET="..."
-
-# Supabase Connection URLs (from Supabase Project Settings -> Database)
-# Used by the app for queries at runtime (connection pooling)
-DATABASE_URL="postgresql://postgres:[YOUR-PASSWORD]@aws-0-...a.com:6543/postgres?pgbouncer=true"
-# Used by Prisma Migrate to modify the database schema
-DIRECT_URL="postgresql://postgres:[YOUR-PASSWORD]@db....supabase.co:5432/postgres"
-
-# Supabase Public Keys (from Supabase Project Settings -> API)
-# Used by the Supabase client for specific RPC calls
-NEXT_PUBLIC_SUPABASE_URL="..."
-NEXT_PUBLIC_SUPABASE_ANON_KEY="..."
-```
-
-### 4. Run Database Migrations
-
-Prisma will read your `schema.prisma` file and set up the database schema, including the custom SQL functions.
-
-```bash
+# 4. Setup database
 npx prisma migrate dev
-```
 
-### 5. Run the Development Server
-
-```bash
+# 5. Start development server
 pnpm dev
 ```
 
-The application should now be running at [http://localhost:3000](http://localhost:3000).
+The application will be available at [http://localhost:3000](http://localhost:3000).
 
-## Deployment with Docker
+## ⚙️ Configuration
 
-The included `Dockerfile` is optimized for production deployment.
+Create a `.env.local` file with your credentials:
 
-### 1. Build the Docker Image
+```env
+# OpenAI API Key
+OPENAI_API_KEY='...'
+MISTRAL_API_KEY='...'
 
-This command builds the image.
+# Supabase
+NEXT_PUBLIC_SUPABASE_URL='...'
+NEXT_PUBLIC_SUPABASE_ANON_KEY='...'
 
-```bash
-docker build -t your-docker-username/fastrag:latest .
+# URL de connexion pour l'application via le pooler
+DATABASE_URL='...'
+
+# URL de connexion directe pour les migrations Prisma (mot de passe encodé)
+DIRECT_URL='...'
+
+GOOGLE_CLIENT_ID='...'
+GOOGLE_CLIENT_SECRET='...'
+AUTH_SECRET='...'
+NEXTAUTH_URL='...'
+
+#AWS IAM CREDENTIALS FOR S3 FILE STORAGE
+AWS_ACCESS_KEY_ID='...'
+AWS_SECRET_ACCESS_KEY='...'
+AWS_REGION='...'
+S3_BUCKET_NAME='...'
 ```
 
-### 2. Run the Docker Container
+### API Configuration
 
-This command runs the container, exposing it on port 3000 and passing all the necessary runtime environment variables from your `.env.local` file.
+**OpenAI**: [Create API Key](https://platform.openai.com/api-keys)
+**Mistral AI**: [Sign up for Mistral](https://console.mistral.ai/)
+**Google OAuth**: [Google Cloud Console](https://console.cloud.google.com/)
+**Supabase**: [New Project](https://supabase.com/dashboard/projects)
+
+## 🐳 Docker Deployment
+
+Production-optimized configuration with [granular chunking](https://web.dev/articles/granular-chunking-nextjs):
 
 ```bash
-docker run -p 3000:3000 --env-file .env.local your-docker-username/fastrag:latest
+# Build the image
+docker build -t chunk-wars:latest .
+
+# Run the container
+docker run -p 3000:3000 --env-file .env.local chunk-wars:latest
 ```
 
 The application will be accessible at [http://localhost:3000](http://localhost:3000).
+
+## 📖 Usage Guide
+
+### 1. 🔄 Create a Setup
+
+1. Click **"+ New Chunk Setup"**
+2. Choose your strategy:
+   - **📄 Template**: Upload PDF/TXT with automatic chunking
+   - **📊 CSV Upload**: Direct import of pre-formatted chunks
+
+### 2. 🤖 Mistral OCR (Recommended)
+
+1. Select **"Mistral OCR"**
+2. Enter your PDF document URL
+3. System automatically detects page count
+4. Images are automatically annotated by AI
+5. Chunking follows document hierarchical structure
+
+### 3. ⚔️ Battleground Mode
+
+1. On the **Chunks** page, activate **Battleground Mode**
+2. Select 2+ setups to compare
+3. **Retrieval**: Simultaneous search with scoring
+4. **Chunk**: Side-by-side content visualization
+
+### 4. 🔍 Vector Search
+
+- Enter your query in the search bar
+- Adjust result count (5-50)
+- Results display with similarity scores
+- Markdown rendered with annotated images
+
+## 🎯 Future Vision
+
+Chunk Wars is evolving toward a comprehensive RAG benchmarking platform:
+
+- **🏆 Advanced Scoring**: Automatic performance metrics
+- **📈 Analytics**: Performance dashboards for setups
+- **🔄 A/B Testing**: Automated configuration testing
+- **🌐 RESTful API**: Integration with existing workflows
+- **🤝 Collaboration**: Team setup sharing
+
+## 🤝 Contributing
+
+This project follows [Effective Next.js Bundle Optimization](https://ujjwaltiwari2.medium.com/effective-next-js-bundle-optimization-with-webpack-cca8632ea03e) standards.
+
+To contribute:
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- [Mistral AI](https://mistral.ai/) for their revolutionary OCR API
+- [OpenAI](https://openai.com/) for quality embeddings
+- [Supabase](https://supabase.com/) for backend infrastructure
+- [Tailwind CSS](https://tailwindcss.com/) for the design system
+
+---
+
+**⚔️ Let the chunk wars begin!**
