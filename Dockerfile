@@ -30,11 +30,9 @@ RUN adduser --system --uid 1001 nextjs
 
 # Copier les fichiers du build depuis l'étape 'builder'
 # Grâce à 'output: standalone', tout ce dont nous avons besoin est ici
-COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/public ./public
-
-# Définir les permissions avant de changer d'utilisateur
-RUN chown -R nextjs:nextjs .
+COPY --from=builder --chown=nextjs:nextjs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nextjs /app/.next/static ./.next/static
 
 # Changer d'utilisateur
 USER nextjs

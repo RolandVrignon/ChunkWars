@@ -3,7 +3,13 @@
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { Project } from "@prisma/client";
+import { Project as PrismaProject } from "@prisma/client";
+
+interface Project extends PrismaProject {
+  _count: {
+    documents: number;
+  };
+}
 
 interface SearchResult {
   id: string;

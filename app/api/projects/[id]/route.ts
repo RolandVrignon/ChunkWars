@@ -20,6 +20,7 @@ export async function GET(
         userId: session.user.id, // Ensure user owns the project
       },
       include: {
+        documents: true,
         _count: {
           select: { documents: true },
         },
@@ -30,10 +31,15 @@ export async function GET(
       return NextResponse.json({ error: "Project not found" }, { status: 404 });
     }
 
-    // Convert BigInt to string before sending
+    // Convert BigInts to strings before sending
     const safeProject = {
       ...project,
       id: project.id.toString(),
+      documents: project.documents.map(doc => ({
+        ...doc,
+        id: doc.id.toString(),
+        projectId: doc.projectId.toString(),
+      })),
     };
 
     return NextResponse.json(safeProject);
@@ -86,14 +92,14 @@ export async function DELETE(
 
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const session = await auth();
   if (!session?.user?.id) {
     return new NextResponse("Not authenticated", { status: 401 });
   }
 
-  const projectId = params.id;
+  const { id: projectId } = await params;
   const { name: newName } = await request.json();
 
   if (!newName) {

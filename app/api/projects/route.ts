@@ -2,22 +2,56 @@ import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import prisma from "@/lib/prisma";
 import Papa from "papaparse";
-import { OpenAI } from "openai";
 import { EmbeddingModel } from "@prisma/client";
-
-const apiKey = process.env.OPENAI_API_KEY ?? "";
-
-const openai = new OpenAI({
-  apiKey: apiKey,
-});
+import {
+  RecursiveCharacterTextSplitter,
+  CharacterTextSplitter,
+} from "langchain/text_splitter";
+import pdf from "pdf-parse";
 
 // Helper to process arrays in chunks
-function chunkArray<T>(array: T[], chunkSize: number): T[][] {
-  const chunks = [];
-  for (let i = 0; i < array.length; i += chunkSize) {
-    chunks.push(array.slice(i, i + chunkSize));
+async function getChunks(
+  strategy: string,
+  file: File,
+  chunkSize: number,
+  overlap: number
+) {
+  let textSplitter;
+
+  switch (strategy) {
+    case "simple":
+      console.log("Using Simple Overlap strategy");
+      textSplitter = new CharacterTextSplitter({
+        chunkSize,
+        chunkOverlap: overlap,
+        separator: " ",
+      });
+      break;
+    case "recursive":
+    default:
+      console.log("Using Recursive Overlap strategy");
+      textSplitter = new RecursiveCharacterTextSplitter({
+        chunkSize,
+        chunkOverlap: overlap,
+      });
+      break;
   }
-  return chunks;
+
+  let fileContent: string;
+  if (file.type === "application/pdf") {
+    const arrayBuffer = await file.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+    const data = await pdf(buffer);
+    console.log("--- PDF PARSE OUTPUT ---");
+    console.log(data.text);
+    console.log("--- END PDF PARSE OUTPUT ---");
+    fileContent = data.text;
+  } else {
+    fileContent = await file.text();
+  }
+
+  const documents = await textSplitter.createDocuments([fileContent]);
+  return documents.map((doc: { pageContent: string }) => ({ chunk: doc.pageContent }));
 }
 
 export async function GET() {
@@ -31,6 +65,11 @@ export async function GET() {
     const projects = await prisma.project.findMany({
       where: {
         userId: session.user.id,
+      },
+      include: {
+        _count: {
+          select: { documents: true },
+        },
       },
       orderBy: {
         createdAt: "desc",
@@ -63,21 +102,10 @@ export async function POST(request: Request) {
     const file = formData.get("file") as File;
     const projectName = formData.get("projectName") as string;
     const model = formData.get("model") as EmbeddingModel;
+    const strategy = formData.get("strategy") as string | null;
 
     if (!file || !projectName || !model) {
       return new NextResponse("Missing required fields", { status: 400 });
-    }
-
-    const fileContent = await file.text();
-    const parsedCsv = Papa.parse(fileContent, {
-      header: true,
-      skipEmptyLines: true,
-      transformHeader: header => header.toLowerCase(),
-    });
-
-    const headers = parsedCsv.meta.fields;
-    if (!headers || !headers.includes('chunk')) {
-      return new NextResponse("The CSV file must contain a 'chunk' column.", { status: 400 });
     }
 
     const project = await prisma.project.create({
@@ -89,51 +117,49 @@ export async function POST(request: Request) {
     });
 
     const readableStream = new ReadableStream({
-      async start(controller) {
-        const encoder = new TextEncoder();
-        const sendEvent = (data: object) => {
-          controller.enqueue(encoder.encode(`data: ${JSON.stringify(data)}\n\n`));
-        };
-
-        const rows = parsedCsv.data as { [key: string]: string }[];
-        const totalRows = rows.length;
-        let processedCount = 0;
-
-        sendEvent({ type: 'start', total: totalRows });
-
-        const rowChunks = chunkArray(rows, 15);
-
-        for (const chunk of rowChunks) {
-          await Promise.all(chunk.map(async (row) => {
-            const { chunk: content, ...metadata } = row;
-            if (!content) return;
-
-            const modelName = model.replace('openai_', '').replace(/_/g, '-');
-            const embeddingOptions: { model: string; input: string; dimensions?: number } = {
-              model: modelName,
-              input: content,
+        async start(controller) {
+            const encoder = new TextEncoder();
+            const sendEvent = (data: object) => {
+                controller.enqueue(encoder.encode(`data: ${JSON.stringify(data)}\n\n`));
             };
 
-            if (model === 'openai_text_embedding_3_large') {
-              embeddingOptions.dimensions = 1536;
+            sendEvent({ type: 'status', message: 'Extracting text...' });
+
+            let rows: { [key: string]: string }[] = [];
+            if (strategy) {
+                const chunkSize = Number(formData.get("chunkSize"));
+                const overlap = Number(formData.get("overlap"));
+                sendEvent({ type: 'status', message: 'Chunking document... This may take a moment.' });
+                rows = await getChunks(strategy, file, chunkSize, overlap);
+            } else {
+                 const fileContent = await file.text();
+                 const parsedCsv = Papa.parse(fileContent, {
+                    header: true,
+                    skipEmptyLines: true,
+                    transformHeader: (header) => header.toLowerCase(),
+                });
+                rows = parsedCsv.data as { [key: string]: string }[];
             }
 
-            const embeddingResponse = await openai.embeddings.create(embeddingOptions);
-            const embedding = embeddingResponse.data[0].embedding;
+            sendEvent({ type: 'status', message: `Saving ${rows.length} chunks...` });
 
-            await prisma.$executeRaw`
-              INSERT INTO documents (content, metadata, project_id, embedding)
-              VALUES (${content}, ${JSON.stringify(metadata)}::jsonb, ${project.id}, ${`[${embedding.join(',')}]`}::vector)
-            `;
-          }));
+            for (const row of rows) {
+                const { chunk: content, ...metadata } = row;
+                if (!content) continue;
 
-          processedCount += chunk.length;
-          sendEvent({ type: 'progress', processed: processedCount, total: totalRows });
+                const newDocument = await prisma.document.create({
+                    data: {
+                        content,
+                        metadata,
+                        projectId: project.id,
+                    },
+                });
+                 sendEvent({ type: 'chunk', data: { ...newDocument, id: newDocument.id.toString(), projectId: newDocument.projectId.toString()} });
+            }
+
+            sendEvent({ type: 'done', projectId: project.id.toString() });
+            controller.close();
         }
-
-        sendEvent({ type: 'done', projectId: project.id.toString() });
-        controller.close();
-      }
     });
 
     return new Response(readableStream, {
@@ -142,8 +168,10 @@ export async function POST(request: Request) {
 
   } catch (error) {
     console.error("[PROJECT_CREATION_ERROR]", error);
-    if (error instanceof Error && 'code' in error && error.code === 'P2002') {
-      return new NextResponse("A project with this name already exists.", { status: 409 });
+    if (error && typeof error === "object" && "code" in error && error.code === "P2002") {
+      return new NextResponse("A project with this name already exists.", {
+        status: 409,
+      });
     }
     return new NextResponse("Internal Server Error", { status: 500 });
   }
