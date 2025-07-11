@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { Project } from "@prisma/client";
+import MarkdownRenderer from "@/components/MarkdownRenderer";
 
 interface SearchResult {
   id: number;
@@ -223,7 +224,12 @@ export default function ProjectPage() {
               results.map((result) => (
                 <div key={result.id} className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
                   <div className="flex justify-between items-start">
-                    <p className="flex-1 pr-4">{result.content}</p>
+                    <div className="flex-1 pr-4">
+                      <MarkdownRenderer
+                        content={result.content}
+                        className="prose-sm max-w-none dark:prose-invert"
+                      />
+                    </div>
                     <span className="text-sm font-semibold text-green-600 dark:text-green-400 bg-green-100 dark:bg-green-800/50 px-2 py-1 rounded-md whitespace-nowrap">
                       Score: {Math.round(result.similarity * 100)}%
                     </span>

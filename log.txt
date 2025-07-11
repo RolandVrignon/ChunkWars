@@ -1,0 +1,698 @@
+
+> chunk-wars@0.1.0 dev /home/rolexx/Documents/fastrag
+> next dev --turbopack
+
+
+✘ node v24.1.0, and next.js v15.3.5 are not yet supported in the Community edition of Console Ninja.
+We are working hard on it for you https://tinyurl.com/3h9mtwra.
+
+Estimated release dates:
+  - Community users: around 3rd September, 2025 (subject to team availability)
+  - PRO users:       priority access is available now
+
+
+✘ node v24.1.0, and next.js v15.3.5 are not yet supported in the Community edition of Console Ninja.
+We are working hard on it for you https://tinyurl.com/3h9mtwra.
+
+Estimated release dates:
+  - Community users: around 3rd September, 2025 (subject to team availability)
+  - PRO users:       priority access is available now
+
+   ▲ Next.js 15.3.5 (Turbopack)
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.1.3:3000
+   - Environments: .env
+
+ ✓ Starting...
+ ✓ Ready in 966ms
+ ○ Compiling /chunks ...
+ ✓ Compiled /chunks in 2s
+ GET /chunks 200 in 2189ms
+ ○ Compiling /api/projects ...
+ ✓ Compiled /api/projects in 1511ms
+ GET /api/projects 200 in 3652ms
+ GET /api/projects 200 in 4211ms
+ ○ Compiling /projects/new ...
+ ✓ Compiled /projects/new in 797ms
+ GET /projects/new 200 in 819ms
+ ○ Compiling /api/s3-upload ...
+ ✓ Compiled /api/s3-upload in 805ms
+S3_UPLOAD_API: Received request for: {
+  filename: 'BK 210_CCTP_Lot01_Démolition.pdf',
+  contentType: 'application/pdf'
+}
+S3_UPLOAD_API: Generated filename: 6e6b2a16-9dc5-4e31-8fc6-6d0695766507-BK 210_CCTP_Lot01_Démolition.pdf
+S3_UPLOAD_API: Generated URLs: {
+  uploadUrl: 'https://chunkwars.s3.eu-west-1.amazonaws.com/6e6b2a16-9dc5-4e31-8fc6-6d0695766507-BK%20210_CCTP_Lot01_D%C3%A9molition.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIA6DXXFRXBL47UXNOS%2F20250711%2Feu-west-1%2Fs3%2Faws4_request&X-Amz-Date=20250711T151915Z&X-Amz-Expires=600&X-Amz-Signature=6a1a37978f2949278178438f7e1e5cc7900cd216db6a2a58ea440cc251c05bff&X-Amz-SignedHeaders=host&x-amz-checksum-crc32=AAAAAA%3D%3D&x-amz-sdk-checksum-algorithm=CRC32&x-id=PutObject',
+  viewUrl: 'https://chunkwars.s3.eu-west-1.amazonaws.com/6e6b2a16-9dc5-4e31-8fc6-6d0695766507-BK%20210_CCTP_Lot01_D%C3%A9molition.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIA6DXXFRXBL47UXNOS%2F20250711%2Feu-west-1%2Fs3%2Faws4_request&X-Amz-Date=20250711T151915Z&X-Amz-Expires=600&X-Amz-Signature=71c9bcdf1f929b767f828eb2baf41effbda65b184b41fd71ff09e735f13fa073&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject'
+}
+ POST /api/s3-upload 200 in 948ms
+numberOfPages: 8
+Using Mistral OCR strategy
+Mistral OCR API response: {
+  pages: [
+    {
+      index: 0,
+      markdown: "# MAITRE D'OUVRAGE\n" +
+        '\n' +
+        '**BURGER KING CONSTRUCTION** 34, rue Mozart 92 110 CLICHY\n' +
+        '\n' +
+        'CONCERNE\n' +
+        '\n' +
+        '![img-0.jpeg](img-0.jpeg)\n' +
+        '\n' +
+        '# RESTAURANT BURGER KING\n' +
+        '\n' +
+        'Centre Commercial Bab 2, Av. Jean Léon Laporte\n' +
+        '\n' +
+        '64600 ANGLET\n' +
+        '\n' +
+        'D.C.E.\n' +
+        '\n' +
+        '|  CCTP | Lot n° 01 | Indice 00  |\n' +
+        '| --- | --- | --- |\n' +
+        '|  **Démolition** |  |   |\n' +
+        '\n' +
+        "|  MAITRISE D'ŒUVRE | BUREAU DE CONTRÔLE | BUREAU D'ÉTUDE FLUIDES  |\n" +
+        '| --- | --- | --- |\n' +
+        '|  RIVE DROITE ARCHITECTURE |  |   |\n' +
+        '|  Immeuble Le Roof |  |   |\n' +
+        '|  6, rue Martrenchar |  |   |\n' +
+        '|  33 150 CENON |  |   |\n' +
+        '|  Tél : 05 56 06 46 78 – Fax : 05 56 77 08 47 |  |   |\n' +
+        '|  agence@rivedroite-architecture.fr |  |   |\n' +
+        '\n' +
+        'Table des matières',
+      images: [Array],
+      dimensions: [Object]
+    },
+    {
+      index: 1,
+      markdown: 'CHAPITRE 1 - GÉNÉRALITÉS ..... 3\n' +
+        '1.1 PRÉSENTATION GÉNÉRALE ..... 3\n' +
+        '1.1.1 Objet des travaux ..... 3\n' +
+        '1.1.2 Etat des lieux ..... 4\n' +
+        '1.1.3 Documents à consulter. ..... 4\n' +
+        '1.1.4 Etendue des travaux ..... 4\n' +
+        '1.1.5 Travaux divers prévus au forfait. ..... 4\n' +
+        '1.2 Textes généraux législatifs et réglementaires ..... 5\n' +
+        '1.3 Relations avec les organismes publics et privés. ..... 5\n' +
+        '1.4 Clauses particulières. ..... 5\n' +
+        '1.4.1 Généralités. ..... 5\n' +
+        '1.4.2 Prise de chantier. ..... 6\n' +
+        "1.4.3 Accès au chantier / responsabilités de l'entreprise. ..... 6\n" +
+        '1.4.4 Garantie ..... 6\n' +
+        '1.4.5 Nettoyage. ..... 6\n' +
+        '1.4.6 Obligation de résultat. ..... 6\n' +
+        "1.5 Conditions d'exécution des travaux. ..... 6\n" +
+        '1.6 ResponsabilitéS. ..... 7\n' +
+        '1.7 Nettoyage des ouvrages ..... 7\n' +
+        '1.8 Directives du Coordonnateur de Sécurité Santé ..... 7\n' +
+        'CHAPITRE 2 - SPÉCIFICATIONS TECHNIQUES ..... 8\n' +
+        '2.1 DÉGRADATIONS CAUSÉES AUX VOIES PUBLIQUES ..... 8\n' +
+        '2.2 Protection des ouvrages ..... 8\n' +
+        'CHAPITRE 3 - DESCRIPTION DES OUVRAGES ..... 9\n' +
+        '3.1 PRÉPARATION DE CHANTIER ..... 9\n' +
+        '3.1.1 Installations générales de chantier ..... 9\n' +
+        '3.1.2 Installations de chantier propre au lot. ..... 9\n' +
+        '3.2 Travaux de DÉMOLITION ..... 9\n' +
+        '3.2.1 Démolitions extérieures. ..... 9\n' +
+        '3.2.2 Tête de ligne et réseau télécom ..... 9\n' +
+        '3.3 NETTOYAGE DU CHANTIER ..... 9\n' +
+        '3.3.1 Nettoyage, curage des réseaux existants et inspection télévisée ..... 10\n' +
+        '3.4 RECOLEMENT ..... 10',
+      images: [],
+      dimensions: [Object]
+    },
+    {
+      index: 2,
+      markdown: '# CHAPITRE 1 - GÉNÉRALITÉS \n' +
+        '\n' +
+        '### 1.1 PRÉSENTATION GÉNÉRALE\n' +
+        '\n' +
+        "Le présent CCTP a pour objet de faire connaître le programme de la construction, le mode d'exécution, la nature et la mise en œuvre des matériels et matériaux permettant l'exécution des travaux de Démolition liés au projet Burger King.\n" +
+        "Il n'est pas limitatif. En conséquence, l'entreprise devra prévoir dans sa soumission :\n" +
+        '\n' +
+        "- La valeur de tous les plans et études complémentaires nécessaires à la réalisation des ouvrages à remettre au maître d'œuvre avant tout début d'exécution des travaux,\n" +
+        "- Tous les travaux indispensables, dans l'ordre général et par analogie, étant entendu qu'il doit assurer le parfait et complet achèvement des ouvrages en ce qui concerne ses lots, sans qu'il puisse prétendre à aucune majoration du prix forfaitaire pour raison d'omission aux plans et devis descriptif.\n" +
+        "Les prix et quantités, qui seront portés au bordereau quantitatif estimatif de l'entreprise, s'entendent, compte tenu de toutes sujétions aux prescriptions découlant du présent CCTP, des plans, du règlement de la consultation, du cahier des clauses administratives générales relatif aux marchés de travaux privés (NF P 03-001), des règlements en vigueur et des règles de l'art, pour un complet et parfait achèvement des ouvrages, quand bien même les travaux ne seraient mentionnés que dans l'une des pièces indiquées ci-dessus, ou omis, mais découleraient de l'intervention logique à la limite de deux corps d'état.\n" +
+        "Toutes les incertitudes relatives aux documents du présent dossier devront être levées au stade de l'étude et aucune réclamation postérieure à la remise de la soumission, émise par suite d'une imprécision, d'une contradiction ou de toute imperfection desdits documents, ne sera admise. La responsabilité de l'entreprise subsiste entièrement, tant en ce qui concerne la solidité des ouvrages, vices ou malfaçons, qu'en ce qui concerne les accidents qui pourraient en être la conséquence pendant l'exécution des travaux.\n" +
+        "L'entreprise sera responsable des dommages de toute nature qui pourraient résulter de l'exécution de ses ouvrages.\n" +
+        "Les entreprises soumissionnaires sont tenues de répondre à la solution de base prévue au présent CCTP. Elles pourront toutefois proposer des variantes structurelles qu'elles jugeraient mieux adaptées à leur technicité, dans le respect du projet architectural. Ces variantes devront être parfaitement décrites, plan à l'appui si nécessaire, afin de pouvoir analyser et juger de leur acceptabilité.\n" +
+        "Il est rappelé que l'entreprise n'est pas un simple fournisseur mais un spécialiste avisé et expérimenté, d'une pratique éprouvée. Ses connaissances lui font un devoir de signaler au maître d'œuvre notamment :\n" +
+        "- Les manques de compatibilité entre l'examen du terrain réalisé lors de la visite du site et les documents d'appel d'offre,\n" +
+        '- Les insuffisances,\n' +
+        '- Les omissions qui pourraient apparaître dans les systèmes prescrits.\n' +
+        '\n' +
+        "L'entreprise confirme que son offre est conforme en tous points aux plans, descriptif et annexes qui lui ont été remis lors de sa soumission, et qu'elle a demandé tous les renseignements utiles pour finaliser son offre.\n" +
+        '\n' +
+        '### 1.1.1 Objet des travaux\n' +
+        '\n' +
+        "Les travaux objets du présent CCTP consistent en l'exécution de travaux de DÉMOLITION relatifs à l'aménagement de l'édifice.",
+      images: [],
+      dimensions: [Object]
+    },
+    {
+      index: 3,
+      markdown: '# 1.1.2 Etat des lieux \n' +
+        '\n' +
+        "L'entreprise doit impérativement, avant sa soumission, se rendre sur les lieux et prendre connaissance de la nature et de l'emplacement des travaux, ainsi que des conditions générales et locales qui peuvent avoir une influence sur le bon déroulement des travaux ou sur le prix de ceux-ci.\n" +
+        "L'entreprise est donc considérée parfaitement en mesure d'apprécier les difficultés qu'elle pourrait rencontrer ultérieurement et sera réputée en tenir compte implicitement. En particulier, lui seront parfaitement connus:\n" +
+        '\n' +
+        '- Le site et ses sujétions propres,\n' +
+        '- Les contraintes relatives aux propriétés voisines,\n' +
+        "- Les modalités et les difficultés d'accès au chantier,\n" +
+        "- Les règlements administratifs en vigueur se rapportant à la sécurité du domaine public. Après signature de son marché, l'entreprise ne peut, en aucune façon, prétendre à une plus-value de quelque nature que ce soit, liée à une méconnaissance des lieux.\n" +
+        '\n' +
+        '\n' +
+        '### 1.1.3 Documents à consulter\n' +
+        '\n' +
+        "En plus des documents d'ordre général et administratif prévus au Règlement de Consultation et au CCAP, l'entreprise adjudicatrice devra prendre connaissance des documents suivants :\n" +
+        '\n' +
+        '- Plans projets du dossier de consultation,\n' +
+        "- Descriptifs de tous les corps d'états (CCTP),\n" +
+        "- Rapport de l'étude de sol,\n" +
+        "- Rapport des Bureaux d'études techniques,\n" +
+        '- Rapport du Bureau de contrôle,\n' +
+        '- Plan général de coordination SPS.\n' +
+        '\n' +
+        "Elle pourra mieux mesurer l'incidence des travaux des autres corps d'état sur les siens propres et elle ne pourra arguer de son ignorance pour ne pas exécuter un travail qui ne serait pas expressément décrit dans le titre Démolition, mais qui serait la conséquence logique de travaux dus par les autres corps d'état. Elle ne pourra pas, non plus, demander un supplément quelconque à son forfait pour les travaux accessoires dus à son lot au titre de ces travaux.\n" +
+        '\n' +
+        '### 1.1.4 Etendue des travaux\n' +
+        '\n' +
+        "La proposition de l'entreprise doit comprendre tous les travaux et fournitures nécessaires à la parfaite et complète réalisation des ouvrages, ainsi que toutes les sujétions.\n" +
+        'Les travaux à réaliser au titre du présent document sont essentiellement :\n' +
+        '\n' +
+        '- Les installations de chantier propres au lot,\n' +
+        "- La réalisation d'un planning détaillé prenant en compte le phasage du chantier,\n" +
+        "- Le nettoyage complet après la démolition ainsi que la remise en état de l'emprise des travaux et des stockages, des voiries et des clôtures détériorées ou démolies du fait des travaux,\n" +
+        "- Tous les ouvrages doivent être livrés en parfait état d'achèvement de finition de propreté. Cette liste n'est pas limitative.\n" +
+        '\n' +
+        '\n' +
+        '### 1.1.5 Travaux divers prévus au forfait\n' +
+        '\n' +
+        "L'entreprise devra prévoir, outre les travaux décrits au présent descriptif et portés aux plans, tous les travaux de sa profession nécessaires au parfait et complet achèvement des bâtiments en ce qui concerne les ouvrages de sa spécialité.\n" +
+        "Toutes les feuillures et réservations seront exécutées par l'entreprise du présent lot. Celle-ci devra demander aux autres corps d'états les sections à réserver.\n" +
+        "L'entreprise aménagera ou exécutera, au cours de la construction, les passages, niches, gaines, poses des fourreaux et les trémies nécessaires dans les murs, poutres, planchers, pour toutes les canalisations",
+      images: [],
+      dimensions: [Object]
+    },
+    {
+      index: 4,
+      markdown: "d'eau, d'électricité, de vidange, etc. ainsi que les incorporations et inserts divers propres à l'exécution de ses propres ouvrages ou ceux des corps d'état secondaires.\n" +
+        "Les échafaudages nécessaires à l'exécution des travaux et leurs accès seront établis par l'entreprise à ses frais et laissés en temps utile à l'utilisation des autres corps d'état. Les moyens de montage pourront servir au besoin aux autres corps d'état sous réserve que cette utilisation n'apporte pas de perturbation au chantier de l'entreprise du présent lot.\n" +
+        '\n' +
+        '# 1.2 TEXTES GÉNÉRAUX LÉGISLATIFS ET RÉGLEMENTAIRES \n' +
+        '\n' +
+        "En règle générale, l'exécution des travaux devra répondre aux exigences et impératifs techniques des normes françaises. L'entreprise est réputée en avoir parfaite connaissance et, lorsque les prescriptions particulières du présent CCTP sont plus astreignantes, elle devra les respecter sans réserve.\n" +
+        "Toutes les publications techniques relatives aux calculs, à la mise en œuvre, à la qualité des produits et à l'exécution des ouvrages en béton seront applicables: Normes Françaises, Documents Techniques Unifiés (Cahier Des Charges, Cahier Des Clauses Techniques, Cahier Des Clauses Spéciales, Règles de Calculs), Règles professionnelles, Avis Techniques et Cahier Des Charges approuvés par le maître d'œuvre pour les matériaux non traditionnels.\n" +
+        "Les travaux seront exécutés pour tout ce qui ne déroge pas aux spécifications du présent document suivant les clauses des normes suivantes (cette liste n'étant pas limitative) :\n" +
+        '\n' +
+        '- Les lois, décrets, arrêtés et règlements administratifs, circulaires ministérielles applicables aux installations,\n' +
+        '- Les arrêtés de la Préfecture de Police,\n' +
+        "- Le livre II du Code du Travail modifié et l'arrêté du 10111976 modifié relatif aux installations de sécurité,\n" +
+        "- Les règlements d'hygiène et le règlement sanitaire départemental type,\n" +
+        '- Le Code du Travail ainsi que les mesures générales de protection et de salubrité applicables à tous les établissements. Code du Travail R 233.14 à R 233.21,\n' +
+        '- Les documents du REEF,\n' +
+        '- Les notices du CSTB,\n' +
+        '\n' +
+        'Sécurité au montage :\n' +
+        '\n' +
+        '- NF P 93311 - 03/87 Filets de sécurité en nappes nouées en textile chimique,\n' +
+        '- NF P 93312 - 02/87 Supports de filets de sécurité,\n' +
+        '- NF S 71020 - Juill. 78 Equipements individuels de protection contre les chutes.\n' +
+        '\n' +
+        '\n' +
+        '### 1.3 RELATIONS AVEC LES ORGANISMES PUBLICS ET PRIVÉS\n' +
+        '\n' +
+        "L'entreprise doit, en ce qui concerne spécifiquement son corps d'état, obtenir auprès des Services Publics ou Privés tous les renseignements et éventuellement les autorisations nécessaires à l'établissement ou la mise en œuvre de ces installations.\n" +
+        "Ces démarches s'effectueront sous le contrôle et l'accord du maître d'œuvre.\n" +
+        '\n' +
+        '### 1.4 CLAUSES PARTICULIÈRES\n' +
+        '\n' +
+        '### 1.4.1 Généralités\n' +
+        '\n' +
+        "Le présent document comporte les explications relatives aux travaux envisagés et la description des matériaux nécessaires à la réalisation de l'installation.\n" +
+        "En dehors des fournitures, l'entreprise devra tous les transports de marchandises à pied d'œuvre ainsi que tous les frais de déplacement et de pension de ses ouvriers.",
+      images: [],
+      dimensions: [Object]
+    },
+    {
+      index: 5,
+      markdown: "L'entreprise devra enlever à ses frais tous les gravois et laisser les locaux dans un état de propreté absolue.\n" +
+        'Tous les travaux seront exécutés conformément aux normes et règlements en vigueur.\n' +
+        "Il s'entend que toutes les déposes comprennent également l'évacuation des éléments dans des filières de retraitement appropriées.\n" +
+        '\n' +
+        '# 1.4.2 Prise de chantier \n' +
+        '\n' +
+        "Elle aura lieu dans l'état, sans réserve. Le cas échéant, l'entreprise fera procéder, à ses frais, à un état des lieux détaillé par un huissier agréé du Maître d'Ouvrage.\n" +
+        '\n' +
+        "### 1.4.3 Accès au chantier / responsabilités de l'entreprise\n" +
+        '\n' +
+        "L'accès au chantier sera défini d'un commun accord entre le titulaire du marché, le Maître d'Ouvrage, les utilisateurs et les services techniques municipaux, en fonction de l'aménagement futur du chantier, du déroulement des travaux et du trafic routier environnant.\n" +
+        "L'entrepreneur devra se soumettre à toutes les impositions de la Maîtrise d'Ouvrage et des services techniques de la commune, comprenant :\n" +
+        '\n' +
+        "- L'horaire de travail,\n" +
+        '- Le plan de circulation des véhicules,\n' +
+        '- Etc.\n' +
+        '\n' +
+        'Les abords du chantier seront maintenus propres en permanence, les dispositions et les moyens nécessaires sont à la charge du présent lot.\n' +
+        "L'entrepreneur sera seul responsable vis-à-vis des ouvrages existants de tous les désordres, dégâts et dommages causés par ses ouvriers, matériels ou l'exécution pure et simple de ses travaux.\n" +
+        'Les frais de remise en état en découlant seront à sa charge exclusive.\n' +
+        "L'entrepreneur devra prendre contact avec l'ensemble des concessionnaires et leur soumettre ses plans d'installation de chantier.\n" +
+        '\n' +
+        '### 1.4.4 Garantie\n' +
+        '\n' +
+        "Pendant la période de garantie, l'entreprise sera tenue de remplacer tous les articles défectueux. Dans le cas où les travaux correspondants entraîneraient une reprise des travaux exécutés par les autres corps d'état ceux-ci seraient réalisés aux frais de l'entreprise du présent lot.\n" +
+        "Cependant, cette garantie ne s'applique pas aux détériorations dues au mauvais usage ou entretien des appareils.\n" +
+        '\n' +
+        '### 1.4.5 Nettoyage\n' +
+        '\n' +
+        "L'entreprise devra le nettoyage du site et des lieux dans lesquels elle aura travaillé ainsi que l'enlèvement de ses gravois.\n" +
+        "Il est spécifié que l'enlèvement des gravois devra s'effectuer au fur et à mesure de l'exécution des travaux afin que le chantier soit maintenu en parfait état de propreté.\n" +
+        '\n' +
+        '### 1.4.6 Obligation de résultat\n' +
+        '\n' +
+        "L'entreprise se doit de réaliser des installations capables d'obtenir les résultats demandés.\n" +
+        '\n' +
+        "### 1.5 CONDITIONS D'EXÉCUTION DES TRAVAUX\n" +
+        '\n' +
+        "Aucun phasage travaux particuliers n'est prévu.",
+      images: [],
+      dimensions: [Object]
+    },
+    {
+      index: 6,
+      markdown: '# 1.6 RESPONSABILITÉS \n' +
+        '\n' +
+        "L'entreprise est seule responsable vis-à-vis du Maître d'Ouvrage de la fourniture et mise en œuvre des matériaux.\n" +
+        "Elle est tenue seule responsable des désordres résultants éventuellement de leur union, sans pouvoir se décharger au préjudice de ses fournisseurs ou de ses sous-traitants de cette responsabilité. Les frais de remise en état de tout ouvrage existant sur le domaine public et dégradé, soit par l'entreprise, soit par l'un de ses fournisseurs, livreurs, sous-traitants, etc. seront à la charge de l'entreprise ainsi que la remise en état des abords après la fin des travaux.\n" +
+        '\n' +
+        '### 1.7 NETTOYAGE DES OUVRAGES\n' +
+        '\n' +
+        "A la fin de chaque phase de travaux et avant l'intervention des autres corps d'état, l'entreprise aura à sa charge le nettoyage des ouvrages à livrer.\n" +
+        '\n' +
+        '### 1.8 DIRECTIVES DU COORDONNATEUR DE SÉCURITÉ SANTÉ\n' +
+        '\n' +
+        "L'entreprise devra se soumettre aux directives du Coordonnateur de Sécurité Santé et prendra connaissance du PGC afin d'en tenir compte dans son offre.",
+      images: [],
+      dimensions: [Object]
+    },
+    {
+      index: 7,
+      markdown: '# CHAPITRE 2 - SPÉCIFICATIONS TECHNIQUES \n' +
+        '\n' +
+        '### 2.1 DÉGRADATIONS CAUSÉES AUX VOIES PUBLIQUES\n' +
+        '\n' +
+        "Il est précisé que l'entrepreneur devra prendre totalement à sa charge toutes les dégradations causées aux voies publiques dont la réparation pourrait lui être réclamée, soit par les Communes pour les voies communales, soit par le Service de l'Equipement pour les voies nationales et départementales. Les frais qui en résulteraient feront partie de faux frais de l'entreprise. A cet effet, avant travaux, un constat de l'état des voies intéressées sera effectué en présence des services ayant la charge de ces voies.\n" +
+        '\n' +
+        '### 2.2 PROTECTION DES OUVRAGES\n' +
+        '\n' +
+        "Pendant toute la durée des travaux, l'entrepreneur adjudicataire du présent lot devra prendre toutes dispositions utiles pour assurer la protection des canalisations avant mise en œuvre.\n" +
+        "Après la mise en charge des différentes canalisations et avant la mise en exploitation des réseaux, l'Entrepreneur assurera la surveillance de ses installations et demeurera responsable de tous les dégâts qui viendraient se produire pendant la durée de chantier.",
+      images: [],
+      dimensions: [Object]
+    }
+  ],
+  model: 'mistral-ocr-2505-completion',
+  documentAnnotation: '{\n' +
+    '  "language": "French",\n' +
+    '  "chapter_titles": [\n' +
+    '    "CHAPITRE 1 - GÉNÉRALITÉS",\n' +
+    '    "1.1 PRÉSENTATION GÉNÉRALE",\n' +
+    '    "1.1.1 Objet des travaux",\n' +
+    '    "1.1.2 État des lieux",\n' +
+    '    "1.1.3 Documents à consulter",\n' +
+    '    "1.1.4 Etendue des travaux",\n' +
+    '    "1.1.5 Travaux divers prévus au forfait",\n' +
+    '    "1.2 TEXTES GÉNÉRAUX LÉGISLATIFS ET RÉGLEMENTAIRES",\n' +
+    '    "1.3 RELATIONS AVEC LES ORGANISMES PUBLICS ET PRIVÉS",\n' +
+    '    "1.4 CLAUSES PARTICULIÈRES",\n' +
+    '    "1.4.1 Généralités",\n' +
+    '    "1.4.2 Prise de chantier",\n' +
+    `    "1.4.3 Accès au chantier / responsabilités de l'entreprise",\n` +
+    '    "1.4.4 Garantie",\n' +
+    '    "1.4.5 Nettoyage",\n' +
+    '    "1.4.6 Obligation de résultat",\n' +
+    `    "1.5 CONDITIONS D'EXÉCUTION DES TRAVAUX",\n` +
+    '    "1.6 RESPONSABILITÉS",\n' +
+    '    "1.7 NETTOYAGE DES OUVRAGES",\n' +
+    '    "1.8 DIRECTIVES DU COORDONNATEUR DE SÉCURITÉ SANTÉ",\n' +
+    '    "CHAPITRE 2 - SPÉCIFICATIONS TECHNIQUES",\n' +
+    '    "2.1 DÉGRADATIONS CAUSÉES AUX VOIES PUBLIQUES",\n' +
+    '    "2.2 PROTECTION DES OUVRAGES"\n' +
+    '  ],\n' +
+    '  "urls": [\n' +
+    '    "https://www.burgerking.fr",\n' +
+    '    "https://www.rivedroite-architecture.fr"\n' +
+    '  ]\n' +
+    '}',
+  usageInfo: { pagesProcessed: 8, docSizeBytes: 363806 }
+}
+AAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHH {
+  "pages": [
+    {
+      "index": 0,
+      "markdown": "# MAITRE D'OUVRAGE\n\n**BURGER KING CONSTRUCTION** 34, rue Mozart 92 110 CLICHY\n\nCONCERNE\n\n![img-0.jpeg](img-0.jpeg)\n\n# RESTAURANT BURGER KING\n\nCentre Commercial Bab 2, Av. Jean Léon Laporte\n\n64600 ANGLET\n\nD.C.E.\n\n|  CCTP | Lot n° 01 | Indice 00  |\n| --- | --- | --- |\n|  **Démolition** |  |   |\n\n|  MAITRISE D'ŒUVRE | BUREAU DE CONTRÔLE | BUREAU D'ÉTUDE FLUIDES  |\n| --- | --- | --- |\n|  RIVE DROITE ARCHITECTURE |  |   |\n|  Immeuble Le Roof |  |   |\n|  6, rue Martrenchar |  |   |\n|  33 150 CENON |  |   |\n|  Tél : 05 56 06 46 78 – Fax : 05 56 77 08 47 |  |   |\n|  agence@rivedroite-architecture.fr |  |   |\n\nTable des matières",
+      "images": [
+        {
+          "id": "img-0.jpeg",
+          "topLeftX": 603,
+          "topLeftY": 505,
+          "bottomRightX": 1075,
+          "bottomRightY": 970,
+          "imageBase64": "data:image/jpeg;base64,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",
+          "imageAnnotation": "{\n  \"image_type\": \"Logo\",\n  \"short_description\": \"Burger King logo\",\n  \"summary\": \"The image displays the logo of Burger King, a well-known fast-food chain. The logo features the words 'BURGER KING' in bold, red letters, with the word 'BURGER' on top and 'KING' below it. The text is set against a background that resembles a burger bun, with the top half of the bun in a light orange color above the text and the bottom half in a darker orange color below the text.\"\n}"
+        }
+      ],
+      "dimensions": {
+        "dpi": 200,
+        "height": 2339,
+        "width": 1654
+      }
+    },
+    {
+      "index": 1,
+      "markdown": "CHAPITRE 1 - GÉNÉRALITÉS ..... 3\n1.1 PRÉSENTATION GÉNÉRALE ..... 3\n1.1.1 Objet des travaux ..... 3\n1.1.2 Etat des lieux ..... 4\n1.1.3 Documents à consulter. ..... 4\n1.1.4 Etendue des travaux ..... 4\n1.1.5 Travaux divers prévus au forfait. ..... 4\n1.2 Textes généraux législatifs et réglementaires ..... 5\n1.3 Relations avec les organismes publics et privés. ..... 5\n1.4 Clauses particulières. ..... 5\n1.4.1 Généralités. ..... 5\n1.4.2 Prise de chantier. ..... 6\n1.4.3 Accès au chantier / responsabilités de l'entreprise. ..... 6\n1.4.4 Garantie ..... 6\n1.4.5 Nettoyage. ..... 6\n1.4.6 Obligation de résultat. ..... 6\n1.5 Conditions d'exécution des travaux. ..... 6\n1.6 ResponsabilitéS. ..... 7\n1.7 Nettoyage des ouvrages ..... 7\n1.8 Directives du Coordonnateur de Sécurité Santé ..... 7\nCHAPITRE 2 - SPÉCIFICATIONS TECHNIQUES ..... 8\n2.1 DÉGRADATIONS CAUSÉES AUX VOIES PUBLIQUES ..... 8\n2.2 Protection des ouvrages ..... 8\nCHAPITRE 3 - DESCRIPTION DES OUVRAGES ..... 9\n3.1 PRÉPARATION DE CHANTIER ..... 9\n3.1.1 Installations générales de chantier ..... 9\n3.1.2 Installations de chantier propre au lot. ..... 9\n3.2 Travaux de DÉMOLITION ..... 9\n3.2.1 Démolitions extérieures. ..... 9\n3.2.2 Tête de ligne et réseau télécom ..... 9\n3.3 NETTOYAGE DU CHANTIER ..... 9\n3.3.1 Nettoyage, curage des réseaux existants et inspection télévisée ..... 10\n3.4 RECOLEMENT ..... 10",
+      "images": [],
+      "dimensions": {
+        "dpi": 200,
+        "height": 2339,
+        "width": 1654
+      }
+    },
+    {
+      "index": 2,
+      "markdown": "# CHAPITRE 1 - GÉNÉRALITÉS \n\n### 1.1 PRÉSENTATION GÉNÉRALE\n\nLe présent CCTP a pour objet de faire connaître le programme de la construction, le mode d'exécution, la nature et la mise en œuvre des matériels et matériaux permettant l'exécution des travaux de Démolition liés au projet Burger King.\nIl n'est pas limitatif. En conséquence, l'entreprise devra prévoir dans sa soumission :\n\n- La valeur de tous les plans et études complémentaires nécessaires à la réalisation des ouvrages à remettre au maître d'œuvre avant tout début d'exécution des travaux,\n- Tous les travaux indispensables, dans l'ordre général et par analogie, étant entendu qu'il doit assurer le parfait et complet achèvement des ouvrages en ce qui concerne ses lots, sans qu'il puisse prétendre à aucune majoration du prix forfaitaire pour raison d'omission aux plans et devis descriptif.\nLes prix et quantités, qui seront portés au bordereau quantitatif estimatif de l'entreprise, s'entendent, compte tenu de toutes sujétions aux prescriptions découlant du présent CCTP, des plans, du règlement de la consultation, du cahier des clauses administratives générales relatif aux marchés de travaux privés (NF P 03-001), des règlements en vigueur et des règles de l'art, pour un complet et parfait achèvement des ouvrages, quand bien même les travaux ne seraient mentionnés que dans l'une des pièces indiquées ci-dessus, ou omis, mais découleraient de l'intervention logique à la limite de deux corps d'état.\nToutes les incertitudes relatives aux documents du présent dossier devront être levées au stade de l'étude et aucune réclamation postérieure à la remise de la soumission, émise par suite d'une imprécision, d'une contradiction ou de toute imperfection desdits documents, ne sera admise. La responsabilité de l'entreprise subsiste entièrement, tant en ce qui concerne la solidité des ouvrages, vices ou malfaçons, qu'en ce qui concerne les accidents qui pourraient en être la conséquence pendant l'exécution des travaux.\nL'entreprise sera responsable des dommages de toute nature qui pourraient résulter de l'exécution de ses ouvrages.\nLes entreprises soumissionnaires sont tenues de répondre à la solution de base prévue au présent CCTP. Elles pourront toutefois proposer des variantes structurelles qu'elles jugeraient mieux adaptées à leur technicité, dans le respect du projet architectural. Ces variantes devront être parfaitement décrites, plan à l'appui si nécessaire, afin de pouvoir analyser et juger de leur acceptabilité.\nIl est rappelé que l'entreprise n'est pas un simple fournisseur mais un spécialiste avisé et expérimenté, d'une pratique éprouvée. Ses connaissances lui font un devoir de signaler au maître d'œuvre notamment :\n- Les manques de compatibilité entre l'examen du terrain réalisé lors de la visite du site et les documents d'appel d'offre,\n- Les insuffisances,\n- Les omissions qui pourraient apparaître dans les systèmes prescrits.\n\nL'entreprise confirme que son offre est conforme en tous points aux plans, descriptif et annexes qui lui ont été remis lors de sa soumission, et qu'elle a demandé tous les renseignements utiles pour finaliser son offre.\n\n### 1.1.1 Objet des travaux\n\nLes travaux objets du présent CCTP consistent en l'exécution de travaux de DÉMOLITION relatifs à l'aménagement de l'édifice.",
+      "images": [],
+      "dimensions": {
+        "dpi": 200,
+        "height": 2339,
+        "width": 1654
+      }
+    },
+    {
+      "index": 3,
+      "markdown": "# 1.1.2 Etat des lieux \n\nL'entreprise doit impérativement, avant sa soumission, se rendre sur les lieux et prendre connaissance de la nature et de l'emplacement des travaux, ainsi que des conditions générales et locales qui peuvent avoir une influence sur le bon déroulement des travaux ou sur le prix de ceux-ci.\nL'entreprise est donc considérée parfaitement en mesure d'apprécier les difficultés qu'elle pourrait rencontrer ultérieurement et sera réputée en tenir compte implicitement. En particulier, lui seront parfaitement connus:\n\n- Le site et ses sujétions propres,\n- Les contraintes relatives aux propriétés voisines,\n- Les modalités et les difficultés d'accès au chantier,\n- Les règlements administratifs en vigueur se rapportant à la sécurité du domaine public. Après signature de son marché, l'entreprise ne peut, en aucune façon, prétendre à une plus-value de quelque nature que ce soit, liée à une méconnaissance des lieux.\n\n\n### 1.1.3 Documents à consulter\n\nEn plus des documents d'ordre général et administratif prévus au Règlement de Consultation et au CCAP, l'entreprise adjudicatrice devra prendre connaissance des documents suivants :\n\n- Plans projets du dossier de consultation,\n- Descriptifs de tous les corps d'états (CCTP),\n- Rapport de l'étude de sol,\n- Rapport des Bureaux d'études techniques,\n- Rapport du Bureau de contrôle,\n- Plan général de coordination SPS.\n\nElle pourra mieux mesurer l'incidence des travaux des autres corps d'état sur les siens propres et elle ne pourra arguer de son ignorance pour ne pas exécuter un travail qui ne serait pas expressément décrit dans le titre Démolition, mais qui serait la conséquence logique de travaux dus par les autres corps d'état. Elle ne pourra pas, non plus, demander un supplément quelconque à son forfait pour les travaux accessoires dus à son lot au titre de ces travaux.\n\n### 1.1.4 Etendue des travaux\n\nLa proposition de l'entreprise doit comprendre tous les travaux et fournitures nécessaires à la parfaite et complète réalisation des ouvrages, ainsi que toutes les sujétions.\nLes travaux à réaliser au titre du présent document sont essentiellement :\n\n- Les installations de chantier propres au lot,\n- La réalisation d'un planning détaillé prenant en compte le phasage du chantier,\n- Le nettoyage complet après la démolition ainsi que la remise en état de l'emprise des travaux et des stockages, des voiries et des clôtures détériorées ou démolies du fait des travaux,\n- Tous les ouvrages doivent être livrés en parfait état d'achèvement de finition de propreté. Cette liste n'est pas limitative.\n\n\n### 1.1.5 Travaux divers prévus au forfait\n\nL'entreprise devra prévoir, outre les travaux décrits au présent descriptif et portés aux plans, tous les travaux de sa profession nécessaires au parfait et complet achèvement des bâtiments en ce qui concerne les ouvrages de sa spécialité.\nToutes les feuillures et réservations seront exécutées par l'entreprise du présent lot. Celle-ci devra demander aux autres corps d'états les sections à réserver.\nL'entreprise aménagera ou exécutera, au cours de la construction, les passages, niches, gaines, poses des fourreaux et les trémies nécessaires dans les murs, poutres, planchers, pour toutes les canalisations",
+      "images": [],
+      "dimensions": {
+        "dpi": 200,
+        "height": 2339,
+        "width": 1654
+      }
+    },
+    {
+      "index": 4,
+      "markdown": "d'eau, d'électricité, de vidange, etc. ainsi que les incorporations et inserts divers propres à l'exécution de ses propres ouvrages ou ceux des corps d'état secondaires.\nLes échafaudages nécessaires à l'exécution des travaux et leurs accès seront établis par l'entreprise à ses frais et laissés en temps utile à l'utilisation des autres corps d'état. Les moyens de montage pourront servir au besoin aux autres corps d'état sous réserve que cette utilisation n'apporte pas de perturbation au chantier de l'entreprise du présent lot.\n\n# 1.2 TEXTES GÉNÉRAUX LÉGISLATIFS ET RÉGLEMENTAIRES \n\nEn règle générale, l'exécution des travaux devra répondre aux exigences et impératifs techniques des normes françaises. L'entreprise est réputée en avoir parfaite connaissance et, lorsque les prescriptions particulières du présent CCTP sont plus astreignantes, elle devra les respecter sans réserve.\nToutes les publications techniques relatives aux calculs, à la mise en œuvre, à la qualité des produits et à l'exécution des ouvrages en béton seront applicables: Normes Françaises, Documents Techniques Unifiés (Cahier Des Charges, Cahier Des Clauses Techniques, Cahier Des Clauses Spéciales, Règles de Calculs), Règles professionnelles, Avis Techniques et Cahier Des Charges approuvés par le maître d'œuvre pour les matériaux non traditionnels.\nLes travaux seront exécutés pour tout ce qui ne déroge pas aux spécifications du présent document suivant les clauses des normes suivantes (cette liste n'étant pas limitative) :\n\n- Les lois, décrets, arrêtés et règlements administratifs, circulaires ministérielles applicables aux installations,\n- Les arrêtés de la Préfecture de Police,\n- Le livre II du Code du Travail modifié et l'arrêté du 10111976 modifié relatif aux installations de sécurité,\n- Les règlements d'hygiène et le règlement sanitaire départemental type,\n- Le Code du Travail ainsi que les mesures générales de protection et de salubrité applicables à tous les établissements. Code du Travail R 233.14 à R 233.21,\n- Les documents du REEF,\n- Les notices du CSTB,\n\nSécurité au montage :\n\n- NF P 93311 - 03/87 Filets de sécurité en nappes nouées en textile chimique,\n- NF P 93312 - 02/87 Supports de filets de sécurité,\n- NF S 71020 - Juill. 78 Equipements individuels de protection contre les chutes.\n\n\n### 1.3 RELATIONS AVEC LES ORGANISMES PUBLICS ET PRIVÉS\n\nL'entreprise doit, en ce qui concerne spécifiquement son corps d'état, obtenir auprès des Services Publics ou Privés tous les renseignements et éventuellement les autorisations nécessaires à l'établissement ou la mise en œuvre de ces installations.\nCes démarches s'effectueront sous le contrôle et l'accord du maître d'œuvre.\n\n### 1.4 CLAUSES PARTICULIÈRES\n\n### 1.4.1 Généralités\n\nLe présent document comporte les explications relatives aux travaux envisagés et la description des matériaux nécessaires à la réalisation de l'installation.\nEn dehors des fournitures, l'entreprise devra tous les transports de marchandises à pied d'œuvre ainsi que tous les frais de déplacement et de pension de ses ouvriers.",
+      "images": [],
+      "dimensions": {
+        "dpi": 200,
+        "height": 2339,
+        "width": 1654
+      }
+    },
+    {
+      "index": 5,
+      "markdown": "L'entreprise devra enlever à ses frais tous les gravois et laisser les locaux dans un état de propreté absolue.\nTous les travaux seront exécutés conformément aux normes et règlements en vigueur.\nIl s'entend que toutes les déposes comprennent également l'évacuation des éléments dans des filières de retraitement appropriées.\n\n# 1.4.2 Prise de chantier \n\nElle aura lieu dans l'état, sans réserve. Le cas échéant, l'entreprise fera procéder, à ses frais, à un état des lieux détaillé par un huissier agréé du Maître d'Ouvrage.\n\n### 1.4.3 Accès au chantier / responsabilités de l'entreprise\n\nL'accès au chantier sera défini d'un commun accord entre le titulaire du marché, le Maître d'Ouvrage, les utilisateurs et les services techniques municipaux, en fonction de l'aménagement futur du chantier, du déroulement des travaux et du trafic routier environnant.\nL'entrepreneur devra se soumettre à toutes les impositions de la Maîtrise d'Ouvrage et des services techniques de la commune, comprenant :\n\n- L'horaire de travail,\n- Le plan de circulation des véhicules,\n- Etc.\n\nLes abords du chantier seront maintenus propres en permanence, les dispositions et les moyens nécessaires sont à la charge du présent lot.\nL'entrepreneur sera seul responsable vis-à-vis des ouvrages existants de tous les désordres, dégâts et dommages causés par ses ouvriers, matériels ou l'exécution pure et simple de ses travaux.\nLes frais de remise en état en découlant seront à sa charge exclusive.\nL'entrepreneur devra prendre contact avec l'ensemble des concessionnaires et leur soumettre ses plans d'installation de chantier.\n\n### 1.4.4 Garantie\n\nPendant la période de garantie, l'entreprise sera tenue de remplacer tous les articles défectueux. Dans le cas où les travaux correspondants entraîneraient une reprise des travaux exécutés par les autres corps d'état ceux-ci seraient réalisés aux frais de l'entreprise du présent lot.\nCependant, cette garantie ne s'applique pas aux détériorations dues au mauvais usage ou entretien des appareils.\n\n### 1.4.5 Nettoyage\n\nL'entreprise devra le nettoyage du site et des lieux dans lesquels elle aura travaillé ainsi que l'enlèvement de ses gravois.\nIl est spécifié que l'enlèvement des gravois devra s'effectuer au fur et à mesure de l'exécution des travaux afin que le chantier soit maintenu en parfait état de propreté.\n\n### 1.4.6 Obligation de résultat\n\nL'entreprise se doit de réaliser des installations capables d'obtenir les résultats demandés.\n\n### 1.5 CONDITIONS D'EXÉCUTION DES TRAVAUX\n\nAucun phasage travaux particuliers n'est prévu.",
+      "images": [],
+      "dimensions": {
+        "dpi": 200,
+        "height": 2339,
+        "width": 1654
+      }
+    },
+    {
+      "index": 6,
+      "markdown": "# 1.6 RESPONSABILITÉS \n\nL'entreprise est seule responsable vis-à-vis du Maître d'Ouvrage de la fourniture et mise en œuvre des matériaux.\nElle est tenue seule responsable des désordres résultants éventuellement de leur union, sans pouvoir se décharger au préjudice de ses fournisseurs ou de ses sous-traitants de cette responsabilité. Les frais de remise en état de tout ouvrage existant sur le domaine public et dégradé, soit par l'entreprise, soit par l'un de ses fournisseurs, livreurs, sous-traitants, etc. seront à la charge de l'entreprise ainsi que la remise en état des abords après la fin des travaux.\n\n### 1.7 NETTOYAGE DES OUVRAGES\n\nA la fin de chaque phase de travaux et avant l'intervention des autres corps d'état, l'entreprise aura à sa charge le nettoyage des ouvrages à livrer.\n\n### 1.8 DIRECTIVES DU COORDONNATEUR DE SÉCURITÉ SANTÉ\n\nL'entreprise devra se soumettre aux directives du Coordonnateur de Sécurité Santé et prendra connaissance du PGC afin d'en tenir compte dans son offre.",
+      "images": [],
+      "dimensions": {
+        "dpi": 200,
+        "height": 2339,
+        "width": 1654
+      }
+    },
+    {
+      "index": 7,
+      "markdown": "# CHAPITRE 2 - SPÉCIFICATIONS TECHNIQUES \n\n### 2.1 DÉGRADATIONS CAUSÉES AUX VOIES PUBLIQUES\n\nIl est précisé que l'entrepreneur devra prendre totalement à sa charge toutes les dégradations causées aux voies publiques dont la réparation pourrait lui être réclamée, soit par les Communes pour les voies communales, soit par le Service de l'Equipement pour les voies nationales et départementales. Les frais qui en résulteraient feront partie de faux frais de l'entreprise. A cet effet, avant travaux, un constat de l'état des voies intéressées sera effectué en présence des services ayant la charge de ces voies.\n\n### 2.2 PROTECTION DES OUVRAGES\n\nPendant toute la durée des travaux, l'entrepreneur adjudicataire du présent lot devra prendre toutes dispositions utiles pour assurer la protection des canalisations avant mise en œuvre.\nAprès la mise en charge des différentes canalisations et avant la mise en exploitation des réseaux, l'Entrepreneur assurera la surveillance de ses installations et demeurera responsable de tous les dégâts qui viendraient se produire pendant la durée de chantier.",
+      "images": [],
+      "dimensions": {
+        "dpi": 200,
+        "height": 2339,
+        "width": 1654
+      }
+    }
+  ],
+  "model": "mistral-ocr-2505-completion",
+  "documentAnnotation": "{\n  \"language\": \"French\",\n  \"chapter_titles\": [\n    \"CHAPITRE 1 - GÉNÉRALITÉS\",\n    \"1.1 PRÉSENTATION GÉNÉRALE\",\n    \"1.1.1 Objet des travaux\",\n    \"1.1.2 État des lieux\",\n    \"1.1.3 Documents à consulter\",\n    \"1.1.4 Etendue des travaux\",\n    \"1.1.5 Travaux divers prévus au forfait\",\n    \"1.2 TEXTES GÉNÉRAUX LÉGISLATIFS ET RÉGLEMENTAIRES\",\n    \"1.3 RELATIONS AVEC LES ORGANISMES PUBLICS ET PRIVÉS\",\n    \"1.4 CLAUSES PARTICULIÈRES\",\n    \"1.4.1 Généralités\",\n    \"1.4.2 Prise de chantier\",\n    \"1.4.3 Accès au chantier / responsabilités de l'entreprise\",\n    \"1.4.4 Garantie\",\n    \"1.4.5 Nettoyage\",\n    \"1.4.6 Obligation de résultat\",\n    \"1.5 CONDITIONS D'EXÉCUTION DES TRAVAUX\",\n    \"1.6 RESPONSABILITÉS\",\n    \"1.7 NETTOYAGE DES OUVRAGES\",\n    \"1.8 DIRECTIVES DU COORDONNATEUR DE SÉCURITÉ SANTÉ\",\n    \"CHAPITRE 2 - SPÉCIFICATIONS TECHNIQUES\",\n    \"2.1 DÉGRADATIONS CAUSÉES AUX VOIES PUBLIQUES\",\n    \"2.2 PROTECTION DES OUVRAGES\"\n  ],\n  \"urls\": [\n    \"https://www.burgerking.fr\",\n    \"https://www.rivedroite-architecture.fr\"\n  ]\n}",
+  "usageInfo": {
+    "pagesProcessed": 8,
+    "docSizeBytes": 363806
+  }
+}
+Document structure detected: { language: 'French', chapters: 23 }
+fullContent: # MAITRE D'OUVRAGE
+
+**BURGER KING CONSTRUCTION** 34, rue Mozart 92 110 CLICHY
+
+CONCERNE
+
+![Burger King logo](img-0.jpeg) [The image displays the logo of Burger King, a well-known fast-food chain. The logo features the words 'BURGER KING' in bold, red letters, with the word 'BURGER' on top and 'KING' below it. The text is set against a background that resembles a burger bun, with the top half of the bun in a light orange color above the text and the bottom half in a darker orange color below the text.]
+
+# RESTAURANT BURGER KING
+
+Centre Commercial Bab 2, Av. Jean Léon Laporte
+
+64600 ANGLET
+
+D.C.E.
+
+|  CCTP | Lot n° 01 | Indice 00  |
+| --- | --- | --- |
+|  **Démolition** |  |   |
+
+|  MAITRISE D'ŒUVRE | BUREAU DE CONTRÔLE | BUREAU D'ÉTUDE FLUIDES  |
+| --- | --- | --- |
+|  RIVE DROITE ARCHITECTURE |  |   |
+|  Immeuble Le Roof |  |   |
+|  6, rue Martrenchar |  |   |
+|  33 150 CENON |  |   |
+|  Tél : 05 56 06 46 78 – Fax : 05 56 77 08 47 |  |   |
+|  agence@rivedroite-architecture.fr |  |   |
+
+Table des matières
+CHAPITRE 1 - GÉNÉRALITÉS ..... 3
+1.1 PRÉSENTATION GÉNÉRALE ..... 3
+1.1.1 Objet des travaux ..... 3
+1.1.2 Etat des lieux ..... 4
+1.1.3 Documents à consulter. ..... 4
+1.1.4 Etendue des travaux ..... 4
+1.1.5 Travaux divers prévus au forfait. ..... 4
+1.2 Textes généraux législatifs et réglementaires ..... 5
+1.3 Relations avec les organismes publics et privés. ..... 5
+1.4 Clauses particulières. ..... 5
+1.4.1 Généralités. ..... 5
+1.4.2 Prise de chantier. ..... 6
+1.4.3 Accès au chantier / responsabilités de l'entreprise. ..... 6
+1.4.4 Garantie ..... 6
+1.4.5 Nettoyage. ..... 6
+1.4.6 Obligation de résultat. ..... 6
+1.5 Conditions d'exécution des travaux. ..... 6
+1.6 ResponsabilitéS. ..... 7
+1.7 Nettoyage des ouvrages ..... 7
+1.8 Directives du Coordonnateur de Sécurité Santé ..... 7
+CHAPITRE 2 - SPÉCIFICATIONS TECHNIQUES ..... 8
+2.1 DÉGRADATIONS CAUSÉES AUX VOIES PUBLIQUES ..... 8
+2.2 Protection des ouvrages ..... 8
+CHAPITRE 3 - DESCRIPTION DES OUVRAGES ..... 9
+3.1 PRÉPARATION DE CHANTIER ..... 9
+3.1.1 Installations générales de chantier ..... 9
+3.1.2 Installations de chantier propre au lot. ..... 9
+3.2 Travaux de DÉMOLITION ..... 9
+3.2.1 Démolitions extérieures. ..... 9
+3.2.2 Tête de ligne et réseau télécom ..... 9
+3.3 NETTOYAGE DU CHANTIER ..... 9
+3.3.1 Nettoyage, curage des réseaux existants et inspection télévisée ..... 10
+3.4 RECOLEMENT ..... 10
+# CHAPITRE 1 - GÉNÉRALITÉS 
+
+### 1.1 PRÉSENTATION GÉNÉRALE
+
+Le présent CCTP a pour objet de faire connaître le programme de la construction, le mode d'exécution, la nature et la mise en œuvre des matériels et matériaux permettant l'exécution des travaux de Démolition liés au projet Burger King.
+Il n'est pas limitatif. En conséquence, l'entreprise devra prévoir dans sa soumission :
+
+- La valeur de tous les plans et études complémentaires nécessaires à la réalisation des ouvrages à remettre au maître d'œuvre avant tout début d'exécution des travaux,
+- Tous les travaux indispensables, dans l'ordre général et par analogie, étant entendu qu'il doit assurer le parfait et complet achèvement des ouvrages en ce qui concerne ses lots, sans qu'il puisse prétendre à aucune majoration du prix forfaitaire pour raison d'omission aux plans et devis descriptif.
+Les prix et quantités, qui seront portés au bordereau quantitatif estimatif de l'entreprise, s'entendent, compte tenu de toutes sujétions aux prescriptions découlant du présent CCTP, des plans, du règlement de la consultation, du cahier des clauses administratives générales relatif aux marchés de travaux privés (NF P 03-001), des règlements en vigueur et des règles de l'art, pour un complet et parfait achèvement des ouvrages, quand bien même les travaux ne seraient mentionnés que dans l'une des pièces indiquées ci-dessus, ou omis, mais découleraient de l'intervention logique à la limite de deux corps d'état.
+Toutes les incertitudes relatives aux documents du présent dossier devront être levées au stade de l'étude et aucune réclamation postérieure à la remise de la soumission, émise par suite d'une imprécision, d'une contradiction ou de toute imperfection desdits documents, ne sera admise. La responsabilité de l'entreprise subsiste entièrement, tant en ce qui concerne la solidité des ouvrages, vices ou malfaçons, qu'en ce qui concerne les accidents qui pourraient en être la conséquence pendant l'exécution des travaux.
+L'entreprise sera responsable des dommages de toute nature qui pourraient résulter de l'exécution de ses ouvrages.
+Les entreprises soumissionnaires sont tenues de répondre à la solution de base prévue au présent CCTP. Elles pourront toutefois proposer des variantes structurelles qu'elles jugeraient mieux adaptées à leur technicité, dans le respect du projet architectural. Ces variantes devront être parfaitement décrites, plan à l'appui si nécessaire, afin de pouvoir analyser et juger de leur acceptabilité.
+Il est rappelé que l'entreprise n'est pas un simple fournisseur mais un spécialiste avisé et expérimenté, d'une pratique éprouvée. Ses connaissances lui font un devoir de signaler au maître d'œuvre notamment :
+- Les manques de compatibilité entre l'examen du terrain réalisé lors de la visite du site et les documents d'appel d'offre,
+- Les insuffisances,
+- Les omissions qui pourraient apparaître dans les systèmes prescrits.
+
+L'entreprise confirme que son offre est conforme en tous points aux plans, descriptif et annexes qui lui ont été remis lors de sa soumission, et qu'elle a demandé tous les renseignements utiles pour finaliser son offre.
+
+### 1.1.1 Objet des travaux
+
+Les travaux objets du présent CCTP consistent en l'exécution de travaux de DÉMOLITION relatifs à l'aménagement de l'édifice.
+# 1.1.2 Etat des lieux 
+
+L'entreprise doit impérativement, avant sa soumission, se rendre sur les lieux et prendre connaissance de la nature et de l'emplacement des travaux, ainsi que des conditions générales et locales qui peuvent avoir une influence sur le bon déroulement des travaux ou sur le prix de ceux-ci.
+L'entreprise est donc considérée parfaitement en mesure d'apprécier les difficultés qu'elle pourrait rencontrer ultérieurement et sera réputée en tenir compte implicitement. En particulier, lui seront parfaitement connus:
+
+- Le site et ses sujétions propres,
+- Les contraintes relatives aux propriétés voisines,
+- Les modalités et les difficultés d'accès au chantier,
+- Les règlements administratifs en vigueur se rapportant à la sécurité du domaine public. Après signature de son marché, l'entreprise ne peut, en aucune façon, prétendre à une plus-value de quelque nature que ce soit, liée à une méconnaissance des lieux.
+
+
+### 1.1.3 Documents à consulter
+
+En plus des documents d'ordre général et administratif prévus au Règlement de Consultation et au CCAP, l'entreprise adjudicatrice devra prendre connaissance des documents suivants :
+
+- Plans projets du dossier de consultation,
+- Descriptifs de tous les corps d'états (CCTP),
+- Rapport de l'étude de sol,
+- Rapport des Bureaux d'études techniques,
+- Rapport du Bureau de contrôle,
+- Plan général de coordination SPS.
+
+Elle pourra mieux mesurer l'incidence des travaux des autres corps d'état sur les siens propres et elle ne pourra arguer de son ignorance pour ne pas exécuter un travail qui ne serait pas expressément décrit dans le titre Démolition, mais qui serait la conséquence logique de travaux dus par les autres corps d'état. Elle ne pourra pas, non plus, demander un supplément quelconque à son forfait pour les travaux accessoires dus à son lot au titre de ces travaux.
+
+### 1.1.4 Etendue des travaux
+
+La proposition de l'entreprise doit comprendre tous les travaux et fournitures nécessaires à la parfaite et complète réalisation des ouvrages, ainsi que toutes les sujétions.
+Les travaux à réaliser au titre du présent document sont essentiellement :
+
+- Les installations de chantier propres au lot,
+- La réalisation d'un planning détaillé prenant en compte le phasage du chantier,
+- Le nettoyage complet après la démolition ainsi que la remise en état de l'emprise des travaux et des stockages, des voiries et des clôtures détériorées ou démolies du fait des travaux,
+- Tous les ouvrages doivent être livrés en parfait état d'achèvement de finition de propreté. Cette liste n'est pas limitative.
+
+
+### 1.1.5 Travaux divers prévus au forfait
+
+L'entreprise devra prévoir, outre les travaux décrits au présent descriptif et portés aux plans, tous les travaux de sa profession nécessaires au parfait et complet achèvement des bâtiments en ce qui concerne les ouvrages de sa spécialité.
+Toutes les feuillures et réservations seront exécutées par l'entreprise du présent lot. Celle-ci devra demander aux autres corps d'états les sections à réserver.
+L'entreprise aménagera ou exécutera, au cours de la construction, les passages, niches, gaines, poses des fourreaux et les trémies nécessaires dans les murs, poutres, planchers, pour toutes les canalisations
+d'eau, d'électricité, de vidange, etc. ainsi que les incorporations et inserts divers propres à l'exécution de ses propres ouvrages ou ceux des corps d'état secondaires.
+Les échafaudages nécessaires à l'exécution des travaux et leurs accès seront établis par l'entreprise à ses frais et laissés en temps utile à l'utilisation des autres corps d'état. Les moyens de montage pourront servir au besoin aux autres corps d'état sous réserve que cette utilisation n'apporte pas de perturbation au chantier de l'entreprise du présent lot.
+
+# 1.2 TEXTES GÉNÉRAUX LÉGISLATIFS ET RÉGLEMENTAIRES 
+
+En règle générale, l'exécution des travaux devra répondre aux exigences et impératifs techniques des normes françaises. L'entreprise est réputée en avoir parfaite connaissance et, lorsque les prescriptions particulières du présent CCTP sont plus astreignantes, elle devra les respecter sans réserve.
+Toutes les publications techniques relatives aux calculs, à la mise en œuvre, à la qualité des produits et à l'exécution des ouvrages en béton seront applicables: Normes Françaises, Documents Techniques Unifiés (Cahier Des Charges, Cahier Des Clauses Techniques, Cahier Des Clauses Spéciales, Règles de Calculs), Règles professionnelles, Avis Techniques et Cahier Des Charges approuvés par le maître d'œuvre pour les matériaux non traditionnels.
+Les travaux seront exécutés pour tout ce qui ne déroge pas aux spécifications du présent document suivant les clauses des normes suivantes (cette liste n'étant pas limitative) :
+
+- Les lois, décrets, arrêtés et règlements administratifs, circulaires ministérielles applicables aux installations,
+- Les arrêtés de la Préfecture de Police,
+- Le livre II du Code du Travail modifié et l'arrêté du 10111976 modifié relatif aux installations de sécurité,
+- Les règlements d'hygiène et le règlement sanitaire départemental type,
+- Le Code du Travail ainsi que les mesures générales de protection et de salubrité applicables à tous les établissements. Code du Travail R 233.14 à R 233.21,
+- Les documents du REEF,
+- Les notices du CSTB,
+
+Sécurité au montage :
+
+- NF P 93311 - 03/87 Filets de sécurité en nappes nouées en textile chimique,
+- NF P 93312 - 02/87 Supports de filets de sécurité,
+- NF S 71020 - Juill. 78 Equipements individuels de protection contre les chutes.
+
+
+### 1.3 RELATIONS AVEC LES ORGANISMES PUBLICS ET PRIVÉS
+
+L'entreprise doit, en ce qui concerne spécifiquement son corps d'état, obtenir auprès des Services Publics ou Privés tous les renseignements et éventuellement les autorisations nécessaires à l'établissement ou la mise en œuvre de ces installations.
+Ces démarches s'effectueront sous le contrôle et l'accord du maître d'œuvre.
+
+### 1.4 CLAUSES PARTICULIÈRES
+
+### 1.4.1 Généralités
+
+Le présent document comporte les explications relatives aux travaux envisagés et la description des matériaux nécessaires à la réalisation de l'installation.
+En dehors des fournitures, l'entreprise devra tous les transports de marchandises à pied d'œuvre ainsi que tous les frais de déplacement et de pension de ses ouvriers.
+L'entreprise devra enlever à ses frais tous les gravois et laisser les locaux dans un état de propreté absolue.
+Tous les travaux seront exécutés conformément aux normes et règlements en vigueur.
+Il s'entend que toutes les déposes comprennent également l'évacuation des éléments dans des filières de retraitement appropriées.
+
+# 1.4.2 Prise de chantier 
+
+Elle aura lieu dans l'état, sans réserve. Le cas échéant, l'entreprise fera procéder, à ses frais, à un état des lieux détaillé par un huissier agréé du Maître d'Ouvrage.
+
+### 1.4.3 Accès au chantier / responsabilités de l'entreprise
+
+L'accès au chantier sera défini d'un commun accord entre le titulaire du marché, le Maître d'Ouvrage, les utilisateurs et les services techniques municipaux, en fonction de l'aménagement futur du chantier, du déroulement des travaux et du trafic routier environnant.
+L'entrepreneur devra se soumettre à toutes les impositions de la Maîtrise d'Ouvrage et des services techniques de la commune, comprenant :
+
+- L'horaire de travail,
+- Le plan de circulation des véhicules,
+- Etc.
+
+Les abords du chantier seront maintenus propres en permanence, les dispositions et les moyens nécessaires sont à la charge du présent lot.
+L'entrepreneur sera seul responsable vis-à-vis des ouvrages existants de tous les désordres, dégâts et dommages causés par ses ouvriers, matériels ou l'exécution pure et simple de ses travaux.
+Les frais de remise en état en découlant seront à sa charge exclusive.
+L'entrepreneur devra prendre contact avec l'ensemble des concessionnaires et leur soumettre ses plans d'installation de chantier.
+
+### 1.4.4 Garantie
+
+Pendant la période de garantie, l'entreprise sera tenue de remplacer tous les articles défectueux. Dans le cas où les travaux correspondants entraîneraient une reprise des travaux exécutés par les autres corps d'état ceux-ci seraient réalisés aux frais de l'entreprise du présent lot.
+Cependant, cette garantie ne s'applique pas aux détériorations dues au mauvais usage ou entretien des appareils.
+
+### 1.4.5 Nettoyage
+
+L'entreprise devra le nettoyage du site et des lieux dans lesquels elle aura travaillé ainsi que l'enlèvement de ses gravois.
+Il est spécifié que l'enlèvement des gravois devra s'effectuer au fur et à mesure de l'exécution des travaux afin que le chantier soit maintenu en parfait état de propreté.
+
+### 1.4.6 Obligation de résultat
+
+L'entreprise se doit de réaliser des installations capables d'obtenir les résultats demandés.
+
+### 1.5 CONDITIONS D'EXÉCUTION DES TRAVAUX
+
+Aucun phasage travaux particuliers n'est prévu.
+# 1.6 RESPONSABILITÉS 
+
+L'entreprise est seule responsable vis-à-vis du Maître d'Ouvrage de la fourniture et mise en œuvre des matériaux.
+Elle est tenue seule responsable des désordres résultants éventuellement de leur union, sans pouvoir se décharger au préjudice de ses fournisseurs ou de ses sous-traitants de cette responsabilité. Les frais de remise en état de tout ouvrage existant sur le domaine public et dégradé, soit par l'entreprise, soit par l'un de ses fournisseurs, livreurs, sous-traitants, etc. seront à la charge de l'entreprise ainsi que la remise en état des abords après la fin des travaux.
+
+### 1.7 NETTOYAGE DES OUVRAGES
+
+A la fin de chaque phase de travaux et avant l'intervention des autres corps d'état, l'entreprise aura à sa charge le nettoyage des ouvrages à livrer.
+
+### 1.8 DIRECTIVES DU COORDONNATEUR DE SÉCURITÉ SANTÉ
+
+L'entreprise devra se soumettre aux directives du Coordonnateur de Sécurité Santé et prendra connaissance du PGC afin d'en tenir compte dans son offre.
+# CHAPITRE 2 - SPÉCIFICATIONS TECHNIQUES 
+
+### 2.1 DÉGRADATIONS CAUSÉES AUX VOIES PUBLIQUES
+
+Il est précisé que l'entrepreneur devra prendre totalement à sa charge toutes les dégradations causées aux voies publiques dont la réparation pourrait lui être réclamée, soit par les Communes pour les voies communales, soit par le Service de l'Equipement pour les voies nationales et départementales. Les frais qui en résulteraient feront partie de faux frais de l'entreprise. A cet effet, avant travaux, un constat de l'état des voies intéressées sera effectué en présence des services ayant la charge de ces voies.
+
+### 2.2 PROTECTION DES OUVRAGES
+
+Pendant toute la durée des travaux, l'entrepreneur adjudicataire du présent lot devra prendre toutes dispositions utiles pour assurer la protection des canalisations avant mise en œuvre.
+Après la mise en charge des différentes canalisations et avant la mise en exploitation des réseaux, l'Entrepreneur assurera la surveillance de ses installations et demeurera responsable de tous les dégâts qui viendraient se produire pendant la durée de chantier.
+ POST /api/projects 200 in 30813ms
+ ○ Compiling /project/[id]/review ...
+ ✓ Compiled /project/[id]/review in 680ms
+ GET /project/25/review 200 in 1102ms
+ ○ Compiling /api/projects/[id] ...
+ ✓ Compiled /api/projects/[id] in 558ms
+ GET /api/projects/25 200 in 2406ms
+ GET /api/projects/25 200 in 2565ms
+ ○ Compiling /api/auth/[...nextauth] ...
+ ✓ Compiled /api/auth/[...nextauth] in 538ms
+ GET /project/25/review 200 in 350ms
+ GET /api/auth/session 200 in 1186ms
+ ○ Compiling /_not-found/page ...
+ GET /.well-known/appspecific/com.chrome.devtools.json 404 in 1829ms
+ GET /api/auth/session 200 in 1564ms
+ GET /api/auth/session 200 in 1013ms
+ ✓ Compiled /_not-found/page in 2.8s
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 1724ms
+ GET /api/projects/25 200 in 1714ms
+ GET /api/auth/session 200 in 705ms
+ GET /project/25/img-0.jpeg 404 in 52ms
+ GET /api/auth/session 200 in 1412ms
+ ✓ Compiled in 122ms
+ GET /project/25/img-0.jpeg 404 in 42ms

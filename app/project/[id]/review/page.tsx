@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Project, Document } from '@prisma/client';
 import { ArrowLeft, Wand2 } from 'lucide-react';
 import Link from 'next/link';
+import MarkdownRenderer from '@/components/MarkdownRenderer';
 
 interface ProjectWithDocuments extends Project {
     documents: Document[];
@@ -106,7 +107,14 @@ export default function ReviewPage({ params }: { params: { id: string } }) {
                                 {project.documents.map((doc, index) => (
                                     <tr key={doc.id.toString()} className="border-b border-gray-700 hover:bg-gray-700/50">
                                         <td className="px-6 py-4 font-medium">{index + 1}</td>
-                                        <td className="px-6 py-4"><p className="max-h-24 overflow-y-auto">{doc.content}</p></td>
+                                                                                <td className="px-6 py-4">
+                                            <div className="w-full">
+                                                <MarkdownRenderer
+                                                    content={doc.content}
+                                                    className="prose-sm prose-invert max-w-none"
+                                                />
+                                            </div>
+                                        </td>
                                         <td className="px-6 py-4">
                                             <pre className="text-xs bg-gray-900 p-2 rounded max-h-24 overflow-y-auto">
                                                 {JSON.stringify(doc.metadata, null, 2)}

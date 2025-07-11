@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { Project, Document } from '@prisma/client';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
+import MarkdownRenderer from '@/components/MarkdownRenderer';
 
 interface ProjectWithDocuments extends Project {
     documents: Document[];
@@ -68,7 +69,12 @@ function ChunkComparePageComponent() {
                             <div className="space-y-4 overflow-y-auto pr-2">
                                 {project.documents.map((doc, index) => (
                                     <div key={doc.id.toString()} className="bg-gray-700 p-3 rounded-lg shadow">
-                                        <p className="flex-1 pr-2 text-sm">{doc.content}</p>
+                                        <div className="flex-1 pr-2 text-sm">
+                                            <MarkdownRenderer
+                                                content={doc.content}
+                                                className="prose-sm prose-invert max-w-none"
+                                            />
+                                        </div>
                                         {Object.keys(doc.metadata).length > 0 && (
                                             <details className="mt-2 text-xs text-gray-400 cursor-pointer">
                                                 <summary className="outline-none">Show metadata</summary>

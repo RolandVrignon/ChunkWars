@@ -4,6 +4,7 @@ import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Project as PrismaProject } from "@prisma/client";
+import MarkdownRenderer from "@/components/MarkdownRenderer";
 
 interface Project extends PrismaProject {
   _count: {
@@ -134,7 +135,12 @@ function ComparePageComponent() {
                         {(results[project.id.toString()] || []).map(result => (
                            <div key={result.id} className="bg-white dark:bg-gray-700 p-3 rounded-lg shadow">
                               <div className="flex justify-between items-start">
-                                <p className="flex-1 pr-2 text-sm">{result.content}</p>
+                                <div className="flex-1 pr-2 text-sm">
+                                  <MarkdownRenderer
+                                    content={result.content}
+                                    className="prose-sm max-w-none dark:prose-invert"
+                                  />
+                                </div>
                                 <span className="text-xs font-semibold text-green-600 dark:text-green-400 bg-green-100 dark:bg-green-800/50 px-2 py-1 rounded-md whitespace-nowrap">
                                   {Math.round(result.similarity * 100)}%
                                 </span>
