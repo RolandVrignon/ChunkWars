@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, Suspense } from "react";
+import { useState, useEffect, Suspense, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Project as PrismaProject } from "@prisma/client";
@@ -23,7 +23,10 @@ type CompareResults = { [projectId: string]: SearchResult[] };
 
 function ComparePageComponent() {
   const searchParams = useSearchParams();
-  const projectIds = searchParams.get("pids")?.split(",") || [];
+  const projectIds = useMemo(() => 
+    searchParams.get("pids")?.split(",") || [],
+    [searchParams]
+  );
 
   const [projectDetails, setProjectDetails] = useState<Project[]>([]);
   const [results, setResults] = useState<CompareResults>({});

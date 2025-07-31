@@ -378,19 +378,45 @@ async function getChunks(
       break;
   }
 
-  if (!file) throw new Error("File is required for this chunking strategy");
+  if (!file && !documentUrl) throw new Error("File or document URL is required for this chunking strategy");
 
   let fileContent: string;
-  if (file.type === "application/pdf") {
-    const arrayBuffer = await file.arrayBuffer();
-    const buffer = Buffer.from(arrayBuffer);
-    const data = await pdf(buffer);
-    console.log("--- PDF PARSE OUTPUT ---");
-    console.log(data.text);
-    console.log("--- END PDF PARSE OUTPUT ---");
-    fileContent = data.text;
+  
+  if (file) {
+    // Process uploaded file
+    if (file.type === "application/pdf") {
+      const arrayBuffer = await file.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+      const data = await pdf(buffer);
+      console.log("--- PDF PARSE OUTPUT ---");
+      console.log(data.text);
+      console.log("--- END PDF PARSE OUTPUT ---");
+      fileContent = data.text;
+    } else {
+      fileContent = await file.text();
+    }
+  } else if (documentUrl) {
+    // Process document from URL
+    console.log("Fetching document from URL:", documentUrl);
+    const response = await fetch(documentUrl);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch document: ${response.statusText}`);
+    }
+    
+    const contentType = response.headers.get('content-type') || '';
+    if (contentType.includes('application/pdf')) {
+      const arrayBuffer = await response.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+      const data = await pdf(buffer);
+      console.log("--- PDF PARSE OUTPUT (from URL) ---");
+      console.log(data.text);
+      console.log("--- END PDF PARSE OUTPUT ---");
+      fileContent = data.text;
+    } else {
+      fileContent = await response.text();
+    }
   } else {
-    fileContent = await file.text();
+    throw new Error("No file or document URL provided");
   }
 
   const documents = await textSplitter.createDocuments([fileContent]);
@@ -443,6 +469,7 @@ export async function POST(request: Request) {
       return new NextResponse("Not authenticated", { status: 401 });
     }
 
+    const userId = session.user.id; // Store the userId after verification
     const formData = await request.formData();
     const file = formData.get("file") as File;
     const projectName = formData.get("projectName") as string;
@@ -457,14 +484,6 @@ export async function POST(request: Request) {
       return new NextResponse("Missing required fields", { status: 400 });
     }
 
-    const project = await prisma.project.create({
-      data: {
-        name: projectName,
-        embedding_model: model,
-        userId: session.user.id,
-      },
-    });
-
     const readableStream = new ReadableStream({
       async start(controller) {
         const encoder = new TextEncoder();
@@ -474,24 +493,25 @@ export async function POST(request: Request) {
           );
         };
 
-        sendEvent({ type: "status", message: "Extracting text..." });
+        try {
+          sendEvent({ type: "status", message: "Extracting text..." });
 
-        let rows: { [key: string]: string }[] = [];
-        if (strategy) {
-          const chunkSize = Number(formData.get("chunkSize"));
-          const overlap = Number(formData.get("overlap"));
-          sendEvent({
-            type: "status",
-            message: "Chunking document... This may take a moment.",
-          });
-          rows = await getChunks(
-            strategy,
-            file,
-            chunkSize,
-            overlap,
-            projectName,
-            documentUrl,
-            numberOfPages
+          let rows: { [key: string]: string }[] = [];
+          if (strategy) {
+            const chunkSize = Number(formData.get("chunkSize"));
+            const overlap = Number(formData.get("overlap"));
+            sendEvent({
+              type: "status",
+              message: "Chunking document... This may take a moment.",
+            });
+            rows = await getChunks(
+              strategy,
+              file,
+              chunkSize,
+              overlap,
+              projectName,
+              documentUrl,
+              numberOfPages
           );
         } else {
           if (!file) throw new Error("File is required for CSV upload");
@@ -503,6 +523,16 @@ export async function POST(request: Request) {
           });
           rows = parsedCsv.data as { [key: string]: string }[];
         }
+
+        // Create project only after successful chunking/processing
+        sendEvent({ type: "status", message: "Creating project..." });
+        const project = await prisma.project.create({
+          data: {
+            name: projectName,
+            embedding_model: model,
+            userId, // We already checked this exists above
+          },
+        });
 
         sendEvent({
           type: "status",
@@ -532,6 +562,15 @@ export async function POST(request: Request) {
 
         sendEvent({ type: "done", projectId: project.id.toString() });
         controller.close();
+        
+        } catch (error) {
+          console.error("[STREAM_ERROR]", error);
+          sendEvent({ 
+            type: "error", 
+            message: error instanceof Error ? error.message : "An error occurred during processing"
+          });
+          controller.close();
+        }
       },
     });
 

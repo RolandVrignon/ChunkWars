@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, Suspense } from 'react';
+import { useState, useEffect, Suspense, useMemo } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Project, Document } from '@prisma/client';
 import Link from 'next/link';
@@ -16,7 +16,10 @@ interface ProjectWithDocuments extends Project {
 
 function ChunkComparePageComponent() {
     const searchParams = useSearchParams();
-    const projectIds = searchParams.get('pids')?.split(',') || [];
+    const projectIds = useMemo(() => 
+        searchParams.get('pids')?.split(',') || [], 
+        [searchParams]
+    );
     const [projects, setProjects] = useState<ProjectWithDocuments[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -39,6 +42,8 @@ function ChunkComparePageComponent() {
                 } finally {
                     setLoading(false);
                 }
+            } else {
+                setLoading(false);
             }
         }
         fetchProjects();
